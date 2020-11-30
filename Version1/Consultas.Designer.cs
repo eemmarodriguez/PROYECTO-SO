@@ -43,9 +43,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.IdLabel = new System.Windows.Forms.Label();
             this.UsuarioLabel = new System.Windows.Forms.Label();
-            this.OnlineButton = new System.Windows.Forms.Button();
+            this.InvitarButton = new System.Windows.Forms.Button();
+            this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.Partida = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.JugarButton = new System.Windows.Forms.Button();
+            this.StatusLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -132,9 +137,10 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Username,
             this.id_player});
-            this.dataGridView1.Location = new System.Drawing.Point(100, 128);
+            this.dataGridView1.Location = new System.Drawing.Point(152, 128);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.Size = new System.Drawing.Size(203, 150);
             this.dataGridView1.TabIndex = 8;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -153,21 +159,25 @@
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Online_users});
-            this.dataGridView2.Location = new System.Drawing.Point(631, 87);
+            this.dataGridView2.Location = new System.Drawing.Point(649, 87);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(143, 150);
+            this.dataGridView2.ReadOnly = true;
+            this.dataGridView2.RowHeadersVisible = false;
+            this.dataGridView2.Size = new System.Drawing.Size(103, 150);
             this.dataGridView2.TabIndex = 10;
+            this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick);
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
             // Online_users
             // 
             this.Online_users.HeaderText = "Online users";
             this.Online_users.Name = "Online_users";
+            this.Online_users.ReadOnly = true;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(664, 33);
+            this.label2.Location = new System.Drawing.Point(895, 30);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(0, 13);
             this.label2.TabIndex = 11;
@@ -175,7 +185,7 @@
             // IdLabel
             // 
             this.IdLabel.AutoSize = true;
-            this.IdLabel.Location = new System.Drawing.Point(664, 33);
+            this.IdLabel.Location = new System.Drawing.Point(895, 30);
             this.IdLabel.Name = "IdLabel";
             this.IdLabel.Size = new System.Drawing.Size(18, 13);
             this.IdLabel.TabIndex = 13;
@@ -184,28 +194,69 @@
             // UsuarioLabel
             // 
             this.UsuarioLabel.AutoSize = true;
-            this.UsuarioLabel.Location = new System.Drawing.Point(664, 9);
+            this.UsuarioLabel.Location = new System.Drawing.Point(895, 6);
             this.UsuarioLabel.Name = "UsuarioLabel";
             this.UsuarioLabel.Size = new System.Drawing.Size(56, 13);
             this.UsuarioLabel.TabIndex = 12;
             this.UsuarioLabel.Text = "USUARIO";
             // 
-            // OnlineButton
+            // InvitarButton
             // 
-            this.OnlineButton.Location = new System.Drawing.Point(12, 23);
-            this.OnlineButton.Name = "OnlineButton";
-            this.OnlineButton.Size = new System.Drawing.Size(75, 23);
-            this.OnlineButton.TabIndex = 14;
-            this.OnlineButton.Text = "Online";
-            this.OnlineButton.UseVisualStyleBackColor = true;
-            this.OnlineButton.Click += new System.EventHandler(this.OnlineButton_Click);
+            this.InvitarButton.Location = new System.Drawing.Point(831, 215);
+            this.InvitarButton.Name = "InvitarButton";
+            this.InvitarButton.Size = new System.Drawing.Size(75, 23);
+            this.InvitarButton.TabIndex = 15;
+            this.InvitarButton.Text = "Invitar";
+            this.InvitarButton.UseVisualStyleBackColor = true;
+            this.InvitarButton.Click += new System.EventHandler(this.InvitarButton_Click);
+            // 
+            // dataGridView3
+            // 
+            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Partida});
+            this.dataGridView3.Location = new System.Drawing.Point(818, 87);
+            this.dataGridView3.Name = "dataGridView3";
+            this.dataGridView3.ReadOnly = true;
+            this.dataGridView3.RowHeadersVisible = false;
+            this.dataGridView3.Size = new System.Drawing.Size(105, 122);
+            this.dataGridView3.TabIndex = 16;
+            this.dataGridView3.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellClick);
+            // 
+            // Partida
+            // 
+            this.Partida.HeaderText = "Partida";
+            this.Partida.Name = "Partida";
+            this.Partida.ReadOnly = true;
+            // 
+            // JugarButton
+            // 
+            this.JugarButton.Location = new System.Drawing.Point(221, 445);
+            this.JugarButton.Name = "JugarButton";
+            this.JugarButton.Size = new System.Drawing.Size(568, 23);
+            this.JugarButton.TabIndex = 17;
+            this.JugarButton.Text = "Jugar";
+            this.JugarButton.UseVisualStyleBackColor = true;
+            this.JugarButton.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // StatusLabel
+            // 
+            this.StatusLabel.AutoSize = true;
+            this.StatusLabel.Location = new System.Drawing.Point(895, 52);
+            this.StatusLabel.Name = "StatusLabel";
+            this.StatusLabel.Size = new System.Drawing.Size(50, 13);
+            this.StatusLabel.TabIndex = 18;
+            this.StatusLabel.Text = "STATUS";
             // 
             // Consultas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(897, 489);
-            this.Controls.Add(this.OnlineButton);
+            this.ClientSize = new System.Drawing.Size(984, 489);
+            this.Controls.Add(this.StatusLabel);
+            this.Controls.Add(this.JugarButton);
+            this.Controls.Add(this.dataGridView3);
+            this.Controls.Add(this.InvitarButton);
             this.Controls.Add(this.IdLabel);
             this.Controls.Add(this.UsuarioLabel);
             this.Controls.Add(this.label2);
@@ -224,6 +275,7 @@
             this.Load += new System.EventHandler(this.Consultas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -246,7 +298,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label IdLabel;
         private System.Windows.Forms.Label UsuarioLabel;
-        private System.Windows.Forms.Button OnlineButton;
+        private System.Windows.Forms.Button InvitarButton;
+        private System.Windows.Forms.DataGridView dataGridView3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Partida;
+        private System.Windows.Forms.Button JugarButton;
+        private System.Windows.Forms.Label StatusLabel;
     }
 }
 

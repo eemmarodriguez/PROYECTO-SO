@@ -23,6 +23,8 @@ namespace Version1
         string socket;
         string usuario;
         string[] registro;
+        int entro = 0;
+        string existe = "false";
         public Login()
         {
             InitializeComponent();
@@ -74,6 +76,10 @@ namespace Version1
         {
             return this.socket; 
         }
+        public int GetDesconectando()
+        {
+            return this.entro; 
+        }
         public string GetUser()
         {
             return this.usuario;
@@ -81,6 +87,10 @@ namespace Version1
         public void SetThread(Thread thread)
         {
             this.atender = thread;
+        }
+        public void SetExiste(string bo)
+        {
+            this.existe = bo;
         }
         private void enviar_server (string mensaje)
         {
@@ -96,36 +106,43 @@ namespace Version1
         private void StartButton_Click(object sender, EventArgs e)
         {
             usuario = textBox1.Text;
+            
             enviar_server("4/" + usuario);
+            
             string pwd = textBox2.Text;
-
+            
 
             if ((usuario != "") && (pwd != ""))
             {
 
-                Thread.Sleep(50); 
+                Thread.Sleep(300);
+                enviar_server("6/" + textBox1.Text);
+                Thread.Sleep(300);
                 string[] message = mensaje; //El split sirve para quedarme solo con el string que quiero
                 string contraseña = message[1];                                                         //lo demás se considera basura
-                if (pwd == contraseña) // SI LA CONTRASEÑA COINCIDE AVANZAMOS
+                if ((pwd == contraseña) && (existe=="false")) // SI LA CONTRASEÑA COINCIDE AVANZAMOS
                 {
                     MessageBox.Show("Log in Correcto");
 
-              
+                    entro = 1;
                     id = message[2];
-                    socket = message[3];
+                    //socket = message[3];
                     
                     this.Hide();      
                     textBox2.Text = "";
 
 
                 }
-                else
+                if (pwd != contraseña)
                 {
                     MessageBox.Show("Usuario o contraseña incorrectos");
                     textBox2.Text = "";
 
                 }
-
+                if (existe == "true")
+                {
+                    MessageBox.Show("El usuario ya esta conectado en otro dispositivo");
+                }
 
             }
             else

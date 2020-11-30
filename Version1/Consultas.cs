@@ -23,13 +23,20 @@ namespace Version1
         int id;
         bool conectado = false;
         int contador_servicios;
-        string socket;
+        //string socket;
         int k = 0;
         Thread atender;
+        string[] partida = new string[4];
+        string[] listapartidas = new string[100];
+        int partida_simultaneas = 0; 
+        int num = 1;
+        
 
         delegate void DelegadoParaEscribirRegister(string mensaje, int n, string id);
         delegate void DelegadoParaEscribirConectados(string mensaje, int n);
         delegate void DelegadoParaRefrescarTablas(int n, int filas);
+        delegate void DelegadoParaEscribirPartida(string[] user, int n);
+        delegate void DelegadoParaListaAnfitrion(string nombre);
         
         public Consultas()
         {
@@ -39,9 +46,10 @@ namespace Version1
 
 
             //"147.83.117.22" Shiva
+            //50020
             //192.168.56.102 Maquina virtual
             IPAddress direc = IPAddress.Parse("147.83.117.22");//DireccionIP de la Maquina Virtual
-            IPEndPoint ipep = new IPEndPoint(direc, 50020); //Le pasamos el acceso y el puerto que asignamos en el codigo del servidor
+            IPEndPoint ipep = new IPEndPoint(direc, 50022); //Le pasamos el acceso y el puerto que asignamos en el codigo del servidor
 
             
             while (k == 0)
@@ -69,7 +77,8 @@ namespace Version1
                     }
                 }
             }
-
+            dataGridView3.RowCount = 4;
+            
             //ponemos en marcha el thread que atenderá los mensajes del servidor
             ThreadStart ts = delegate { AtenderServidor(); };
             atender = new Thread(ts);
@@ -81,9 +90,11 @@ namespace Version1
             //CheckForIllegalCrossThreadCalls = false; 
             
         }
+
         
         private void Consultas_Load(object sender, EventArgs e)
         {
+            
             if (k == 1)
             {
                 FormsLogin.SetServer(server);
@@ -92,45 +103,50 @@ namespace Version1
                 FormsRegister.SetServerRegister(server);
                 FormsLogin.ShowDialog();
 
-                string index = FormsLogin.GetId();
-                string sock = FormsLogin.GetSocket();
-                usuario = FormsLogin.GetUser();
-                this.id = Convert.ToInt32(index);
-                this.socket = sock;
+                int desconectandologin = FormsLogin.GetDesconectando();
+                if (desconectandologin == 1)
+                {
+                    string index = FormsLogin.GetId();
+                    //string sock = FormsLogin.GetSocket();
+                    usuario = FormsLogin.GetUser();
+                    dataGridView3.Rows[0].Cells[0].Value = this.usuario; //metemos el usuario propio en la partida
+                    this.id = Convert.ToInt32(index);
+                    //this.socket = sock;
 
 
-                UsuarioLabel.Text = "User: " + this.usuario;
-                IdLabel.Text = "ID: " + Convert.ToString(this.id);
+                    UsuarioLabel.Text = "User: " + this.usuario;
+                    IdLabel.Text = "ID: " + Convert.ToString(this.id);
 
-                this.CenterToScreen();
-
-
-                if (this.BackColor != Color.Green)
-                    SendButton.Enabled = false;
+                    this.CenterToScreen();
 
 
+                    if (this.BackColor != Color.Green)
+                        SendButton.Enabled = false;
 
 
-                //NOS VAMOS A PONER COMO ONLINE
 
 
-                int calculo = Convert.ToInt32(socket);
-                calculo++;
-                socket = Convert.ToString(calculo);
-                enviar_server("7/" + sock + "/" + index);
-                conectado = true;
+                    //NOS VAMOS A PONER COMO ONLINE
 
 
+                    StatusLabel.Text = "Eres el anfitrion";
+                    enviar_server("7/" + this.usuario + "/1");
+                    conectado = true;
+
+                }
+                else
+                {
+                    atender.Abort();
+                    cerrando = true;
+                    Application.Exit();
+                }
             }
             else
                 Application.Exit();
 
         }
         
-        public void SetSocket(string t)
-        {
-            this.socket = t;
-        }
+        
         public void SetUsername (string user)  //RECIBIMOS EL USUARIO CONECTADO
         { 
             this.usuario = user;
@@ -154,6 +170,15 @@ namespace Version1
             dataGridView2.Rows[n].Cells[0].Value = user;
             dataGridView2.Refresh();
         }
+        public void PonData3(string[] user, int n)
+        {
+            dataGridView3.Rows[n].Cells[0].Value = user[n + 3];
+            dataGridView3.Enabled = false;
+            JugarButton.Enabled = false;
+            StatusLabel.Text = "Eres el invitado";
+            InvitarButton.Enabled = false;
+            dataGridView3.Refresh();
+        }
         public void ClearRefresh (int n, int filas)
         {
             if (n == 1)
@@ -169,6 +194,18 @@ namespace Version1
                 dataGridView2.RowCount = filas;
                 dataGridView2.Refresh();
 
+            }
+            if (n == 3)
+            {
+                dataGridView3.Rows.Clear();
+                dataGridView3.RowCount = filas;
+                dataGridView3.Rows[0].Cells[0].Value = this.usuario;
+                dataGridView3.Enabled = true;
+                JugarButton.Enabled = true;
+                StatusLabel.Text = "Eres el anfitrion";
+                InvitarButton.Enabled = true;
+                dataGridView3.Refresh();
+                
             }
 
         }
@@ -199,7 +236,7 @@ namespace Version1
                         case 3:
                             // RESETEAMOS LA GRID PARA LOS DATOS
                             string index2 = trozos[1].Split('/')[0];
-                            
+
 
                             //CONSULTAMOS AL SERVIDOR SOBRE EL NUMERO DE JUGADORES
                             //PREGUNTANDO EL ID MÁS GRANDE
@@ -218,48 +255,107 @@ namespace Version1
                                 if (i != 2)
                                 {
                                     //IMPRIMIMOS LOS RESULTADOS EN LA GRID DEL FORMS
-                                    
+
                                     DelegadoParaEscribirRegister delegado = new DelegadoParaEscribirRegister(PonData1);
-                                    
+
                                     dataGridView1.Invoke(delegado, new object[] { username, n, istr });
 
                                 }
                                 n++;
                                 i++;
                             }
-                            
+
                             break;
-                        case 4: //CONECTADOS
+                        case 4:
                             string index = trozos[1].Split('/')[0]; //4/IDMAX/Player1/Player2
-                            
+
 
                             int total = Convert.ToInt32(index);
 
                             DelegadoParaRefrescarTablas del2 = new DelegadoParaRefrescarTablas(ClearRefresh);
-                            dataGridView2.Invoke(del2, new object[] {2, total});
+                            dataGridView2.Invoke(del2, new object[] { 2, total });
 
                             i = 2;
-                            n = -1;
+                            n = 0;
                             while (i < total + 2)
                             {
                                 string username = trozos[i].Split('/')[0];
-                                if ((username != "NO") && (i != 2)) //SI NOS DEVUELVE NO ESE USUARIO NO ESTA CONECTADO
+                                if ((username != "NO")) //SI NOS DEVUELVE NO ESE USUARIO NO ESTA CONECTADO
                                 {
-                                    
+
                                     DelegadoParaEscribirConectados delegado = new DelegadoParaEscribirConectados(PonData2);
                                     dataGridView2.Invoke(delegado, new object[] { username, n });
                                 }
                                 n++;
                                 i++;
                             }
-                           
+
 
                             break;
-                        case 6: // LOGIN
-                            FormsLogin.SetMensaje(trozos); 
+                        case 6:
+                            FormsLogin.SetMensaje(trozos);
                             break;
-                        case 7: // REGISTER
+                        case 7:
                             FormsRegister.SetRegister(trozos);
+                            break;
+                        case 8:
+                            if (MessageBox.Show("Te ha invitado " + trozos[1] + " a jugar", " ", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                            {
+                                listapartidas[partida_simultaneas] = trozos[2];//trozos[2] nos manda 
+                                //partida_simultaneas++;
+                                
+                                enviar_server("10/Si/"+ trozos[2] + "/"+ this.usuario);
+                            }
+                            else
+                                enviar_server("10/No/"+ trozos[2] + "/"+ this.usuario);
+                            break;
+                        case 9:
+                            if (trozos[1] == "No")//emisor invitacion (el usuario)
+                            {
+                                string message = trozos[2];
+                                string nombre = message;
+                                message = message + " no ha aceptado la invitacion";
+                                MessageBox.Show(message );
+
+                                DelegadoParaListaAnfitrion delegacion = new DelegadoParaListaAnfitrion(CambiarListaAnfitrion);
+                                dataGridView3.Invoke(delegacion, new object[] { nombre });
+                                
+                            }
+                            if (trozos[1] == "Si")//emisor invitacion (el usuario)
+                            {
+                                
+                                MessageBox.Show(trozos[2] + " ha aceptado la invitacion");
+                                listapartidas[partida_simultaneas] = trozos[3];//trozos[2] nos manda
+
+                            }
+                            if (trozos[1] == "llena") //es el receptor (el usuario)
+                            {
+                                int filas = Convert.ToInt32(trozos[2]);
+                                DelegadoParaRefrescarTablas delegado2 = new DelegadoParaRefrescarTablas(ClearRefresh);
+                                dataGridView3.Invoke(delegado2, new object[] { 3, 4});
+                                for (int j=0; j<filas; j++)
+                                {
+                                    DelegadoParaEscribirPartida delegado = new DelegadoParaEscribirPartida(PonData3);
+                                    dataGridView3.Invoke(delegado, new object[] { trozos, j});
+                                   
+                                }
+
+
+                            }
+                            if (trozos[1] == "Mevoy")
+                            {
+                                MessageBox.Show("El anfitrion te ha expulsado");
+                                DelegadoParaRefrescarTablas delegado2 = new DelegadoParaRefrescarTablas(ClearRefresh);
+                                dataGridView3.Invoke(delegado2, new object[] { 3, 4 });
+                                
+                            }
+                            break;
+                        case 10:
+
+                            MessageBox.Show("Empieza la partida");
+                            break;
+                        case 11:
+                            FormsLogin.SetExiste(trozos[1]);
                             break;
                     }
                 }
@@ -326,7 +422,7 @@ namespace Version1
             // NOS QUITAMOS DEL MODO ONLINE
             
             conectado = false;
-            enviar_server("8/" + Convert.ToString(id));
+            enviar_server("7/" + this.usuario+"/0");//NOS DESCONECTAMOS FLAG = 0
       
             
             FormsLogin.ShowDialog();
@@ -335,12 +431,14 @@ namespace Version1
             string sock = FormsLogin.GetSocket();
             usuario = FormsLogin.GetUser();
             this.id = Convert.ToInt32(index);
-            this.socket = sock;
+            
+            dataGridView3.Rows[0].Cells[0].Value = this.usuario;
+            dataGridView3.RowCount = 4;
 
             UsuarioLabel.Text = "User: " + this.usuario;
             IdLabel.Text = "ID: " + Convert.ToString(this.id);
 
-            enviar_server("7/" + socket + "/" + Convert.ToString(id));
+            enviar_server("7/" + this.usuario +"/1");//NOS CONECTAMOS FLAG = 1
             conectado = true;
            
         }
@@ -350,18 +448,20 @@ namespace Version1
 
             if ((cerrando == false) && (k == 1))
             {
-                enviar_server("8/" + Convert.ToString(id));
+                enviar_server("7/" + this.usuario+"/0"); //NOS DESCONECTAMOS flag = 0
                 //Nos desconectamos
+                Thread.Sleep(200);
+                atender.Abort();
                 enviar_server("0/Desconectado");
-               
-                
-                
+
+
+                MessageBox.Show("DESCONECTADO");
                 this.BackColor = Color.Gray;
                 //Nos desconectamos
                 server.Shutdown(SocketShutdown.Both);
                 server.Close();
-                atender.Abort();
-                MessageBox.Show("DESCONECTADO");
+                
+                
             }
             cerrando = true;         
             disconecting = true;     
@@ -415,11 +515,11 @@ namespace Version1
 
         }
 
-        
+
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+           
         }
 
         private void UsernameBox_TextChanged(object sender, EventArgs e)
@@ -432,9 +532,156 @@ namespace Version1
             UsernameBox.Text = ""; 
         }
 
-        private void OnlineButton_Click(object sender, EventArgs e)
+       
+
+        private void InvitarButton_Click(object sender, EventArgs e)
         {
+            string mensaje = "9/";
+            mensaje = mensaje + Convert.ToString(num) + "/" + this.usuario + "/";
+            int j;
+            for(j=0; j<4;j++)
+            {
+                if (partida[j] != null)
+                {
+                    mensaje = mensaje + partida[j] + "/";
+                }
+            }
+            if (partida_simultaneas == 0)
+            {
+                listapartidas[partida_simultaneas] = Convert.ToString(partida_simultaneas);
+               
+            }
+            if (partida_simultaneas != 0)
+            {
+
+            }
+            //MessageBox.Show(mensaje);
+            StatusLabel.Text = "Eres el anfitrion";
+            enviar_server(mensaje);
             
+
+        }
+
+    
+
+        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string nombre = dataGridView2.CurrentCell.Value.ToString();
+
+            if (MessageBox.Show("Quieres jugar con: " + nombre, " ", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                if (nombre == this.usuario)
+                {
+
+                    MessageBox.Show("No puedes invitarte a ti mismo, ya estas en la partida");
+                }
+                else
+                {
+                    if ((num == 4) && (nombre != this.usuario))
+                    {
+                        MessageBox.Show("La partida esta llena");
+                    }
+                    else
+                    {
+                        
+                        dataGridView3.Rows[num].Cells[0].Value = nombre;
+                        dataGridView3.Refresh();
+                        partida[num] = nombre;
+                        num++;
+                    }
+
+                }
+                
+
+            }
+        }
+
+        private void dataGridView3_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            if (dataGridView3.CurrentCell.Value != null)
+            {
+
+
+                string nombre = dataGridView3.CurrentCell.Value.ToString();
+                if (MessageBox.Show("¿Seguro que quieres borrar a  " + nombre + " de la partida?", " ", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    int indice = dataGridView3.CurrentCell.RowIndex;
+                    if (partida_simultaneas==0)
+                    {
+                        enviar_server("10/Quitame/"+Convert.ToString(listapartidas[0])+"/"+nombre);
+                    }
+                    if (partida_simultaneas > 0)
+                    {
+
+                    }
+
+                    //dataGridView3.Rows[indice].Cells[0].Value="";
+                    CambiarListaAnfitrion(nombre);
+                    
+                }
+            }
+            
+                
+            
+        }
+        private void CambiarListaAnfitrion (string nombre)
+        {
+            int j = 0;
+            while (j < num)
+            {
+                if (partida[j] == nombre)
+                {
+                    if (j == 0)
+                    {
+                        dataGridView3.Rows[0].Cells[0].Value = partida[1];
+                        partida[0] = partida[1];
+                        dataGridView3.Rows[1].Cells[0].Value = partida[2];
+                        partida[1] = partida[2];
+                        dataGridView3.Rows[2].Cells[0].Value = partida[3];
+                        partida[2] = partida[3];
+                        dataGridView3.Rows[3].Cells[0].Value = "";
+                        partida[3] = null;
+                    }
+                    if (j == 1)
+                    {
+                        dataGridView3.Rows[1].Cells[0].Value = partida[2];
+                        partida[1] = partida[2];
+                        dataGridView3.Rows[2].Cells[0].Value = partida[3];
+                        partida[2] = partida[3];
+                        dataGridView3.Rows[3].Cells[0].Value = "";
+                        partida[3] = null;
+                    }
+                    if (j == 2)
+                    {
+                        dataGridView3.Rows[2].Cells[0].Value = partida[3];
+                        partida[2] = partida[3];
+                        dataGridView3.Rows[3].Cells[0].Value = "";
+                        partida[3] = null;
+                    }
+                    if (j == 3)
+                    {
+                        dataGridView3.Rows[3].Cells[0].Value = "";
+                        partida[3] = null;
+                    }
+
+                }
+                j++;
+            }
+            num = num - 1;
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            enviar_server("11/" + Convert.ToString(listapartidas[0]));
+            //if (partida_simultaneas == 0)
+            //{
+
+            //}
+            //else
+            //{
+            //    listapartidas[partida_simultaneas] = Convert.ToString(partida_simultaneas);
+            //    partida_simultaneas++;
+            //}
         }
     }
 }

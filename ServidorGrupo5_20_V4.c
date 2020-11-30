@@ -8,13 +8,109 @@
 #include <mysql.h>
 #include <pthread.h>
 
+
 int contador;
 int i=0;
 int sockets[100]; //Vector de Sockets, que serán las conexiones de los usuarios
-int puerto = 9012; 
+int puerto = 50022;  //50020
+
+typedef struct {
+	int socket;
+	int conectado;
+	char nombre[30];
+}Usuario;
+
+typedef struct{
+	Usuario usuarios[100];
+	int num;
+	int current;
+}ListaUsuarios;
+
+typedef struct{
+	Usuario usuarios[4];
+	int num;
+	int current;
+	int status; //0 libre 1 ocupada
+}Partida;
+typedef struct{
+	Partida partidas[100];
+	int num;
+	int totales;
+}ListaPartidas;
+
+ListaUsuarios l;
+ListaPartidas lpartidas;
 
 //Estructura necesaria para acesso excluyente
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+
+void PonerJugadorPartida (Partida *part, int j, char nombre[30])
+{
+	strcpy(part->usuarios[j].nombre, nombre);
+}
+void PonerUsuariosConectados (ListaUsuarios *l, int socket, char nombre[30], int flag)
+{
+	int encontrado = 0;
+	for(int i=0; i<l->num ;i++)
+	{
+		if (strcmp(l->usuarios[i].nombre, nombre)==0)
+		{
+			encontrado = 1;
+			l->usuarios[i].socket = socket;
+			l->usuarios[i].conectado = flag;
+			if (flag == 1)
+				l->current++;
+			if (flag == 0)
+				l->current--;
+		}
+	}
+	if (encontrado == 0)
+	{
+		l->usuarios[l->num].socket = socket;
+		strcpy(l->usuarios[l->num].nombre, nombre);
+		l->usuarios[l->num].conectado = flag;
+		l->num++;
+		if (flag == 1)
+			l->current++;
+		if (flag == 0)
+			l->current--;
+	}
+}
+
+void PonerDatosPartida (ListaUsuarios l, Partida *part, int k, int j,char nombre[30])
+{
+	
+	part->usuarios[j].socket = l.usuarios[k].socket;
+	strcpy(part->usuarios[j].nombre, nombre);
+	part->current++;
+}
+
+void PonerPartida (ListaPartidas *lpartidas, Partida part)
+{
+	lpartidas->partidas[lpartidas->num] = part;
+	lpartidas->partidas[lpartidas->num].status = 1;
+	lpartidas->num ++;
+}
+void CambioPosiciones(Partida *part, int i)
+{
+	if (i==1)
+	{
+		
+		part->usuarios[1] = part->usuarios[2];
+		part->usuarios[2] = part->usuarios[3];
+		
+	}
+	if (i==2)
+	{
+		part->usuarios[2] = part->usuarios[3];
+		
+	}
+	if (i==3)
+	{
+		
+	}
+	
+}
 
 void *AtenderCliente (void *socket)
 {
@@ -41,6 +137,8 @@ void *AtenderCliente (void *socket)
 	MYSQL *conn;
 	int err;
 	
+	
+		
 	//Creamos la conexión al servidor MYSQL
 	conn = mysql_init(NULL);
 	if (conn==NULL) {
@@ -48,8 +146,8 @@ void *AtenderCliente (void *socket)
 				mysql_errno(conn), mysql_error(conn));
 		exit (1);
 	}
-	//inicializar la conexion
-	conn = mysql_real_connect (conn,"localhost","root","mysql","datagame",0,NULL,0);
+	//inicializar la conexion shiva2.upc.es
+	conn = mysql_real_connect (conn,"shiva2.upc.es","root","mysql","datagame",0,NULL,0);
 	if (conn==NULL) {
 		printf ("Error al inicializar la conexion: %u %s\n", 
 				mysql_errno(conn), mysql_error(conn));
@@ -103,7 +201,7 @@ void *AtenderCliente (void *socket)
 		
 		if (codigo == 1) //Queremos saber las victorias de un jugador concreto
 		{
-			pthread_mutex_lock( &mutex ); //NO me interrumpas ahora
+			
 			printf("\tEntrado en contar victorias del jugador (codigo==1)\n");
 			
 			strcpy(consulta, "SELECT COUNT(winner) FROM GAME WHERE winner ='");
@@ -140,11 +238,11 @@ void *AtenderCliente (void *socket)
 			}
 			printf("\tSe acaba la consulta 1\n"); 
 			
-			pthread_mutex_unlock( &mutex);//Ya puedes interrumpirme
+			
 		}
 		if (codigo == 2) //Consulta para saber que día hubo más partidas
 		{	
-			pthread_mutex_lock( &mutex ); //NO me interrumpas ahora
+			
 			printf("\tEntramos en la consulta del día con mas partidas(codigo==2)\n");
 			
 			strcpy(consulta, "SELECT day, COUNT(day) AS total FROM GAME GROUP BY day ORDER BY total DESC");
@@ -173,7 +271,7 @@ void *AtenderCliente (void *socket)
 				
 			}
 			printf("\tAcaba la consulta con codigo 2\n");
-			pthread_mutex_unlock( &mutex);//Ya puedes interrumpirme
+			
 			
 		}
 		
@@ -181,7 +279,7 @@ void *AtenderCliente (void *socket)
 		
 		if(codigo == 3) //Seleccionamos el id más grande que haya en la tabla player
 		{
-			pthread_mutex_lock( &mutex ); //NO me interrumpas ahora
+			
 			printf("\tEntramos en la consulta de id más grande (codigo==3)\n");
 			
 			char envio[512];
@@ -254,19 +352,22 @@ void *AtenderCliente (void *socket)
 				
 			}
 			printf("\tSe acaba la consulta Consultar Registered\n"); 
-			pthread_mutex_unlock( &mutex);//Ya puedes interrumpirme
+			
 		}
 		
 		
 		if (codigo == 4) //LOG IN
 		{
 			char envio[50];
-			pthread_mutex_lock( &mutex ); //NO me interrumpas ahora
+			
 			printf("\tEntramos en la consulta de Log In (consulta==4)\n");
 			
 			strcpy(consulta, "SELECT pwd FROM PLAYER WHERE username ='");
 			strcat(consulta, nombre);
 			strcat(consulta,"'");
+			
+			
+			
 			
 			printf ("\tLa consulta que mandamos a MySQL es: %s\n", consulta); 
 			
@@ -296,6 +397,7 @@ void *AtenderCliente (void *socket)
 				// El resultado debe ser una matriz con una sola fila
 				// y una columna que contiene el numero de victorias
 				printf ("\tHemos obtenido la contraseña con exito\n");
+				
 				sprintf(envio, "%s", row[0]);
 				strcat(envio, "/");
 			}	
@@ -332,40 +434,17 @@ void *AtenderCliente (void *socket)
 				
 			}
 			
-			//METEMOS EL EXCLUYENTE
+			sprintf(respuesta,"6/%s", envio);
+		
 			
 			
 			printf("\tSe acaba la consulta de Buscar ID\n");
-			
-			printf ("\tEntramos en la consulta SOCKET, (consulta==6)\n");
-			
-			strcpy(consulta, "SELECT MAX(socket) FROM CONNECT");
-			
-			printf ("%s\n", consulta);
-			
-			err=mysql_query (conn, consulta);
-			
-			resultado = mysql_store_result(conn);
-			row = mysql_fetch_row(resultado); 
-			
-			printf("\tConsulta realizada con exito\n");
-			
-			if (row == NULL)
-				printf ("No se han obtenido datos en la consulta\n");
-			else
-			{
-				printf("\tEl socket asignado es: %s\n",row[0]);
-				strcat(envio, row[0]);
-				strcat(envio, "/");
-				sprintf(respuesta,"6/%s", envio);
-			}
-			printf("\tSe acaba la consulta SOCKET\n"); 
-			pthread_mutex_unlock( &mutex);//Ya puedes interrumpirme
+					
 			
 		}
 		if (codigo == 5) //REGISTER
 		{
-			pthread_mutex_lock( &mutex ); //NO me interrumpas ahora
+			//pthread_mutex_lock( &mutex ); //NO me interrumpas ahora
 			// entramos el strtok como: nombre/contraseña
 			
 			printf("\tEntramos en Register, (consulta==5)\n");
@@ -427,260 +506,329 @@ void *AtenderCliente (void *socket)
 				sprintf(respuesta, "%s", "NO");
 			}
 			printf("\tSe acaba la consulta de Register\n"); 
-			pthread_mutex_unlock( &mutex);//Ya puedes interrumpirme
+			//pthread_mutex_unlock( &mutex);//Ya puedes interrumpirme
 			
 		}
-		
-		if (codigo == 7) //INSERTAR VALORES EN CONECTADO EN LOG IN 
+		if (codigo == 6)
 		{
-			pthread_mutex_lock( &mutex ); //NO me interrumpas ahora
-			// la estructura que nos llega de nombre es: socket/id
-			
-			printf ("\tEntramos en la consulta CONECTADO, (consulta==7)\n");
-			
-			strcpy(consulta, "INSERT INTO CONNECT (socket, id_P) VALUES (");
-			strcat(consulta, nombre);
-			
-			strcat(consulta,", ");
-			
-			p = strtok (NULL, "/");
-			char socket [30];
-			strcpy (socket, p);
-			strcat(consulta, socket);
-			
-			strcat(consulta, ")");
-			
-			printf ("la consulta es: %s\n", consulta);
-			
-			//hacemos la consulta
-			err=mysql_query(conn, consulta);
-			if(err!=0)
+			int encontrado = 0;
+			char envio[40];
+			strcpy(envio, "11/");
+			printf("\tConsulta 6\n"); 
+			printf("\tAntes Del For\n"); 
+			for(int j=0; j<l.num;j++)
 			{
-				printf("Error al consultar datos de la base %u%s\n", mysql_errno(conn), mysql_error(conn));
-				//strcpy(respuesta, "NO");
-				char notificacion[20];
-				sprintf (notificacion, "4/%s", "No");
-				for(int j=0; j< i; j++)
-					write (sockets[j], notificacion, strlen(notificacion));
-				exit(1);
-				
-			}
-			else
-			{
-				printf("\tConsulta realizada con exito\n");
-				printf("\tSe ha introducido correctamente en la lista\n");
-				//strcpy(respuesta, "SI");
-				
-				char envio[512];
-				
-				strcpy(consulta, "SELECT COUNT(id_C) FROM CONNECT");
-				err=mysql_query(conn, consulta);
-				if(err!=0)
+				printf("\tEn el for: %d\n", j); 
+				if ((strcmp(l.usuarios[j].nombre, nombre)==0)&&(l.usuarios[j].conectado==1))
 				{
-					printf("Error al consultar datos de la base %u%s\n", mysql_errno(conn), mysql_error(conn));
-					exit(1);
-					
+					printf("\ENCONTRADO\n"); 
+					encontrado = 1;
 				}
-				else{
-					printf("\tConsulta realizada con exito\n");
-					
-					//Recogemos el resultado de la consulta
-					resultado = mysql_store_result (conn); 
-					
-					row = mysql_fetch_row (resultado);
-					
-					
-					strcpy(envio, "4/");
-					strcat(envio, row[0]); //AHORA MISMO TENEMO 4/IDMAX/
-					strcat(envio, "/");
-					printf ("Envio %s:\n ", envio);
-					int maximum = atoi(row[0]);
-					
-					
-					strcpy(consulta, "SELECT username FROM PLAYER,CONNECT WHERE PLAYER.id=CONNECT.id_P");
-					/*	strcat(consulta, "Davis");*/
-					/*	strcat(consulta,"'");*/
-					
-					printf("\tHacemos consulta a mySQL\n");
-					
-					//hacemos la consulta
-					err=mysql_query(conn, consulta);
-					if(err!=0)
-					{
-						printf("Error al consultar datos de la base %u%s\n", mysql_errno(conn), mysql_error(conn));
-						exit(1);
-						
-					}
-					
-					printf("\tConsulta realizada con exito\n");
-					
-					//Recogemos el resultado de la consulta
-					resultado = mysql_store_result (conn); 
-					
-					row = mysql_fetch_row (resultado);
-					
-					if (row == NULL){
-						
-						printf ("\t\tNo se han obtenido datos en la consulta\n");}
-					
-					else{
-						// El resultado debe ser una matriz con una sola fila
-						// y una columna que contiene el numero de victorias
-						int j=0;
-						while (j<maximum)
-						{
-							
-							strcat(envio, row[0]); //IDMAX/Player1/Player2/Player3
-							strcat(envio, "/");
-							printf ("\tUsuario: %s\n", row[0] );
-							printf ("Envio %s\n: ", envio);
-							row = mysql_fetch_row (resultado);
-							j=j+1;
-							
-						}
-						printf("\tSalimos WHILE\n"); 
-						
-						
-						
-					}
-				}
-				
-				
-				
-				char notificacion[512];
-				sprintf (notificacion, "%s", envio);
-				printf ("Notificacion %s\n", notificacion);
-				for(int j=0; j< i; j++)
-					write (sockets[j], notificacion, strlen(notificacion));
-				
-				
 			}
-			printf("\tSe acaba la consulta CONNECT\n"); 
-			pthread_mutex_unlock( &mutex);//Ya puedes interrumpirme
+			if (encontrado == 1)
+			{
+				printf("\tENVIAMOS TRUE\n"); 
+				strcat(envio, "true");
+			}
+			else 
+			{
+				printf("\tENVIAMOS FALSE\n"); 
+				strcat(envio, "false");
+			}
+			sprintf(respuesta, "%s", envio);
+		}
+		if (codigo == 7)
+		{
+			//nos llega /nombre/0 (desconectar) /nombre/1 (conectar)
+			
+			// 1 conectado, 0 desconectado (FLAGS)
+			char usuario[30];
+			strcpy (usuario, nombre);
+			char *p;
+			p = strtok(NULL, "/");
+			int conectadoflag = atoi(p);
+			
+			pthread_mutex_lock( &mutex);
+			PonerUsuariosConectados (&l, sock_conn, nombre, conectadoflag);
+			pthread_mutex_unlock( &mutex);
+			
+			char envio[50]; //enviaremos 4/IDMAX/Player1/Player2
+			sprintf(envio, "%d", l.current);
+			strcat(envio, "/");
+			
+			int socks[100];
+			int SockIndex = 0;
+			printf("SOCK_CONN: %d\n", sock_conn);
+			for(int j=0;j<l.num;j++)
+			{
+				if (l.usuarios[j].conectado == 1)
+				{
+					strcat(envio,l.usuarios[j].nombre);
+					strcat(envio, "/");
+					socks[SockIndex] = l.usuarios[j].socket;
+					printf("SOCKETS: %d\n", l.usuarios[j].socket);
+					SockIndex++;						
+				}
+			}
+			printf("\tsocks[SOCKINDEX]: %d\n", socks[0]);
+			
+			
+			char notificacion[512];
+			sprintf (notificacion, "4/%s", envio);
+			printf ("Notificacion %s\n", notificacion);
+			for(int j=0; j< SockIndex; j++)
+				write (socks[j], notificacion, strlen(notificacion));
 			
 		}
-		
-		
-		if (codigo == 8) //ELIMINAR DATOS DE CONECTADO 
+
+		if (codigo == 9) //partida
 		{
-			pthread_mutex_lock( &mutex ); //NO me interrumpas ahora
-			// nos llega el strtok como: id
-			printf ("\tEntramos en la consulta DESCONECTADO, (consulta==8)\n");
-			
-			strcpy(consulta, "DELETE FROM CONNECT WHERE id_P =");
-			strcat(consulta, nombre);
+			pthread_mutex_lock( &mutex);
 			
 			
+			int indice = atoi(nombre);
+			Partida party;
+			party.num = indice;
 			
-			//hacemos la consulta
-			err=mysql_query(conn, consulta);
-			if(err!=0)
+			char IndicePartida[30];
+			sprintf(IndicePartida, "%d", lpartidas.num);
+			
+			party.current = 0;
+			char invitador[30];
+			char participantes[50];
+			int Socket[indice];
+			int entro=0;
+			for (int j=0; j<indice; j++)
 			{
-				printf("Error al consultar datos de la base %u%s\n", mysql_errno(conn), mysql_error(conn));
-				strcpy(respuesta, "NO");
-				exit(1);
-				
-			}
-			else
-			{
-				printf("\tSe ha eliminado correctamente en la lista\n");
-				char envio[512];
-				
-				strcpy(consulta, "SELECT COUNT(id_C) FROM CONNECT");
-				err=mysql_query(conn, consulta);
-				if(err!=0)
+				char *p;
+				p = strtok(NULL,"/");
+				if (j==0)
 				{
-					printf("Error al consultar datos de la base %u%s\n", mysql_errno(conn), mysql_error(conn));
-					exit(1);
-					
+					strcpy(invitador, p);
+					strcat(invitador, "/");
+					PonerJugadorPartida(&party, j, p);
 				}
-				else{
-					printf("\tConsulta realizada con exito\n");
-					
-					//Recogemos el resultado de la consulta
-					resultado = mysql_store_result (conn); 
-					
-					row = mysql_fetch_row (resultado);
-					
-					
-					strcpy(envio, "4/");
-					strcat(envio, row[0]); //AHORA MISMO TENEMO 4/IDMAX/
-					strcat(envio, "/");
-					printf ("Envio %s:\n ", envio);
-					int maximum = atoi(row[0]);
-					
-					
-					strcpy(consulta, "SELECT username FROM PLAYER,CONNECT WHERE PLAYER.id=CONNECT.id_P");
-					/*	strcat(consulta, "Davis");*/
-					/*	strcat(consulta,"'");*/
-					
-					printf("\tHacemos consulta a mySQL\n");
-					
-					//hacemos la consulta
-					err=mysql_query(conn, consulta);
-					if(err!=0)
+				
+				
+				for (int k=0; k<=l.num; k++)
+				{
+					if (strcmp(l.usuarios[k].nombre, p) == 0)
 					{
-						printf("Error al consultar datos de la base %u%s\n", mysql_errno(conn), mysql_error(conn));
-						exit(1);
-						
-					}
-					
-					printf("\tConsulta realizada con exito\n");
-					
-					//Recogemos el resultado de la consulta
-					resultado = mysql_store_result (conn); 
-					
-					row = mysql_fetch_row (resultado);
-					
-					if (row == NULL){
-						
-						printf ("\t\tNo se han obtenido datos en la consulta\n");}
-					
-					else{
-						// El resultado debe ser una matriz con una sola fila
-						// y una columna que contiene el numero de victorias
-						int j=0;
-						while (j<maximum)
+						if ((j==0)&&(entro==0))
 						{
-							
-							strcat(envio, row[0]); //IDMAX/Player1/Player2/Player3
-							strcat(envio, "/");
-							printf ("\tUsuario: %s\n", row[0] );
-							printf ("Envio %s\n: ", envio);
-							row = mysql_fetch_row (resultado);
-							j=j+1;
-							
+							printf("CURRENT %d\n", party.current);
+							PonerDatosPartida(l, &party, k, j, p);
+							entro = 1;
+							printf("CURRENT %d\n", party.current);
 						}
-						printf("\tSalimos WHILE\n"); 
-						
-						
-						
+						Socket[j] = l.usuarios[k].socket;
 					}
 				}
-				
-				
-				
-				char notificacion[512];
-				sprintf (notificacion, "%s", envio);
-				printf ("Notificacion %s\n", notificacion);
-				for(int j=0; j< i; j++)
-					write (sockets[j], notificacion, strlen(notificacion));
-				
 				
 			}
-			printf("\tSe acaba la consulta CONNECT\n"); 
-			pthread_mutex_unlock( &mutex);//Ya puedes interrumpirme
+			//if lpartidas.partidas[lpartidas.num].status == 0)
+			PonerPartida(&lpartidas, party);
+			printf("CURRENT %d\n", lpartidas.partidas[0].current);
+			char notificacion[512];
+			strcat(invitador, IndicePartida);
+			strcat(invitador, "/");
+			sprintf (notificacion, "8/%s", invitador);
+			printf ("Notificacion %s\n", notificacion);
+			for(int j=1; j< indice; j++)
+				write (Socket[j], notificacion, strlen(notificacion));
 			
-		}		
-		
+			pthread_mutex_unlock( &mutex);
+			
+		}
+		if (codigo == 10) 
+		{
+			pthread_mutex_lock( &mutex);
+			printf("\t Estamos en codigo 10\n");
+			if (strcmp("No", nombre) == 0)
+			{
+				printf("\t Es No\n");
+				char *p;
+				p = strtok(NULL, "/"); 
+				int indice = atoi(p);
+				p = strtok(NULL,"/");
+				char nojuega[30];
+				strcpy (nojuega, p);
+				
+				
+				int socket = lpartidas.partidas[indice].usuarios[0].socket;
+				lpartidas.partidas[indice].num--;
+				char notificacion[512];
+				sprintf(notificacion, "9/%s", "No/");
+				strcat(notificacion, nojuega);
+				strcat(notificacion, "/");
+				write(socket, notificacion, strlen(notificacion));
+			}
+			
+			if (strcmp("Si", nombre) == 0)
+			{
+				printf("\t Es Si\n");
+				printf("\t %s\n", nombre);
+				char *p;
+				p = strtok(NULL,"/");
+				int indice = atoi(p); //en que partida estamos
+				printf("\t %s\n", p);
+				p = strtok(NULL,"/");
+				char invitado[30];
+				int entro = 0;
+				int noenviar = 0;
+				strcpy(invitado, p);
+				printf("\t %s\n", invitado);
+				
+				int numparticipantes = lpartidas.partidas[indice].current;
+				printf("\t numeroparticipantes: %d \n", numparticipantes);
+				//strcpy(lpartidas->partidas[indice].usuarios[numparticipantes].nombre, invitado);
+				
+				printf("\t current: %d \n",lpartidas.partidas[indice].current);
+				for (int i=0; i<lpartidas.partidas[indice].num; i++)//comprobamos si el usuario ya esta en la partida
+				{
+					if(strcmp(lpartidas.partidas[indice].usuarios[i].nombre, invitado)==0)
+					{
+						entro = 1; //Si esta en la partida, no lo volvemos a poner
+						
+					}
+				}
+				for (int k=0; k<=l.num; k++)
+				{
+					printf("COMPARACION\n");
+					printf("\tlista %s\n", l.usuarios[k].nombre);
+					printf("\tinvitado %s\n", invitado);
+					if ((strcmp(l.usuarios[k].nombre, invitado) == 0)&&(entro==0))
+					{
+						printf("\t entramos en match\n");
+						PonerDatosPartida(l, &lpartidas.partidas[indice], k, numparticipantes, invitado); 	
+						printf("\t current dentro del match: %d \n",lpartidas.partidas[indice].current);
+						entro = 1;
+					}
+				}	
+				char envio[60];
+				strcpy(envio, "9/llena/");
+				char numusuarios[30];
+				sprintf(numusuarios, "%d", lpartidas.partidas[indice].current);
+				printf("\n");
+				strcat(envio, numusuarios);
+				strcat(envio, "/");
+				for (int j=0; j<lpartidas.partidas[indice].current; j++) 
+				{	
+					strcat(envio, lpartidas.partidas[indice].usuarios[j].nombre);
+					strcat(envio, "/");
+					
+				}
+				
+				printf("ENVIO: %s\n", envio);
+				if (noenviar == 0)
+				{
+					for (int j=0; j<lpartidas.partidas[indice].current; j++) //j=1 porque al que invita no se le envia					
+					{
+						if (j==0)
+						{
+							char mensaje[40];
+							char quepartidasoy[30];
+							strcpy(mensaje, "9/Si/");
+							strcat(mensaje, invitado);
+							strcat(mensaje, "/");
+							sprintf(quepartidasoy, "%d", lpartidas.num-1);
+							strcat(mensaje, quepartidasoy);
+							strcat(mensaje, "/");
+							write(lpartidas.partidas[indice].usuarios[j].socket, mensaje, strlen(mensaje));
+						}
+						else
+							write(lpartidas.partidas[indice].usuarios[j].socket, envio, strlen(envio));
+						
+					}
+				}
+			}
+			if (strcmp("Quitame", nombre) == 0)
+			{
+				//10/Quitame/numpart/nombre
+				int entro = 0;
+				int noenviar = 0;
+				char *p;
+				p = strtok(NULL,"/");
+				int indice = atoi(p); //en que partida estamos
+				printf("\t %s\n", p);
+				p = strtok(NULL,"/");
+				char eliminado[30];
+				strcpy(eliminado, p);
+				int soy = i;
+				int sock;
+				
+				for (int i=0; i<lpartidas.partidas[indice].current; i++)//comprobamos si el usuario ya esta en la partida
+				{
+					if(strcmp(lpartidas.partidas[indice].usuarios[i].nombre, eliminado)==0)
+					{
+						soy = i;
+						sock = lpartidas.partidas[indice].usuarios[i].socket;
+						lpartidas.partidas[indice].current--;
+						CambioPosiciones(&lpartidas.partidas[indice], i);
+						
+						char mensaje[40];
+						strcpy(mensaje, "9/Mevoy/");
+						write(sock, mensaje, strlen(mensaje));
+						entro = 1; //Si esta en la partida, no lo volvemos a poner
+						noenviar = 1;
+					}
+				}
+				
+				char envio[60];
+				strcpy(envio, "9/llena/");
+				char numusuarios[30];
+				sprintf(numusuarios, "%d", lpartidas.partidas[indice].current);
+				printf("\n");
+				strcat(envio, numusuarios);
+				strcat(envio, "/");
+				for (int j=0; j<lpartidas.partidas[indice].current; j++) 
+				{	
+					strcat(envio, lpartidas.partidas[indice].usuarios[j].nombre);
+					strcat(envio, "/");
+					
+				}
+				
+				printf("ENVIO: %s\n", envio);
+				if (noenviar == 1)
+				{
+					for (int j=0; j<lpartidas.partidas[indice].current; j++) //j=1 porque al que invita no se le envia					
+					{
+						if (j==0)
+						{
+							char mensaje[40];
+							strcpy(mensaje, "9/Eliminado/");
+							strcat(mensaje, eliminado);
+							strcat(mensaje, "/");
+							write(lpartidas.partidas[indice].usuarios[j].socket, mensaje, strlen(mensaje));
+						}
+						else
+							write(lpartidas.partidas[indice].usuarios[j].socket, envio, strlen(envio));
+					}
+				}
+			}
+			pthread_mutex_unlock( &mutex);
+		}
+		if (codigo == 11)
+		{ 	//MENSAJE 11/indicepartida
+			int partidaindex = atoi(nombre);
+			int indexfor = lpartidas.partidas[partidaindex].current;
+			for(int j=0;j<indexfor;j++)
+			{
+				char mensaje[40];
+				strcpy (mensaje, "10/comienza/");
+				write(lpartidas.partidas[partidaindex].usuarios[j].socket, mensaje, strlen(mensaje));
+			}
+			
+			
+		}
 		if (codigo != 0)
 		{
-			pthread_mutex_lock( &mutex ); //NO me interrumpas ahora
+			
 			printf ("Respuesta: %s\n", respuesta);
 			strcat(respuesta, "/");
 			// Y lo enviamos
 			write (sock_conn, respuesta, strlen(respuesta));
-			pthread_mutex_unlock( &mutex);
+			
 		}
 		if ((codigo == 1) || (codigo = 2) || (codigo = 3) || (codigo = 4) || (codigo = 5) || (codigo = 6) || (codigo = 7) || (codigo = 8) || (codigo = 9) || (codigo = 10) || (codigo = 15) || (codigo = 96) )
 		{
@@ -699,8 +847,8 @@ void *AtenderCliente (void *socket)
 			}
 		}
 			
-			
-				
+
+		
 		
 		
     }
@@ -749,7 +897,16 @@ int main(int argc, char *argv[])
 	contador = 0;
 	
 	pthread_t thread[100]; //Vector de threads
+	int num = 0;
+	l.num = 0;
+	lpartidas.num=0;
+	lpartidas.totales = 100;
+	for(int j=0; j<lpartidas.totales; j++)
+	{
+		lpartidas.partidas[j].status=0;
+	}
 	
+
 	
 	for(i;i<100;i++){
 	

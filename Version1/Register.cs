@@ -62,7 +62,7 @@ namespace Version1
                 {
                     
                     enviar_server("5/" + UsernameBox.Text + "/" + PasswordBox.Text);
-                    Thread.Sleep(60);
+                    Thread.Sleep(20);
                     string mensaje;
                     mensaje = m[1];
 
