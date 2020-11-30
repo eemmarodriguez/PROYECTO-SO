@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace Version1
 {
@@ -15,6 +16,7 @@ namespace Version1
     public partial class Register : Form
     {
         Socket server;
+        string[] m; 
         public Register()
         {
             InitializeComponent();
@@ -30,7 +32,25 @@ namespace Version1
         {
 
         }
+        public void SetRegister (string[] register)
+        {
+            this.m = register;
+    
+        }
+        public void SetServerRegister(Socket servidor)
+        {
+            this.server = servidor;
+        }
+        private void enviar_server(string mensaje)
+        {
 
+            //Envimos al servidor el nombre tecleado
+            //Cogemos el string creado y lo convertimos en un vector de Bytes
+            byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
+            server.Send(msg);
+
+
+        }
         private void SaveButton_Click_1(object sender, EventArgs e)
         {
             //Creamos un IPEndPoint con el ip del servidor y puerto del servidor
@@ -40,34 +60,12 @@ namespace Version1
             {
                 if (PasswordBox.Text == Comprovation.Text)
                 {
-                    IPAddress direc = IPAddress.Parse("192.168.56.101");//DireccionIP de la Maquina Virtual
-                    IPEndPoint ipep = new IPEndPoint(direc, 9007); //Le pasamos el acceso y el puerto que asignamos en el codigo del servidor
+                    
+                    enviar_server("5/" + UsernameBox.Text + "/" + PasswordBox.Text);
+                    Thread.Sleep(60);
+                    string mensaje;
+                    mensaje = m[1];
 
-                    server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);//Parámetros estándard
-                    try
-                    {
-                        server.Connect(ipep); //Intentamos conectar el socket
-                        this.BackColor = Color.Green;
-                        //MessageBox.Show("conectado");
-                    }
-                    catch (SocketException ex)
-                    {
-                        //Si hay excepción imprimimos error y salimos del programa con return
-                        MessageBox.Show("No se ha podido conectar con el servidor");
-                        return;
-                    }
-                    string mensaje = "5/" + UsernameBox.Text + "/" + PasswordBox.Text;
-                    //Envimos al servidor el nombre tecleado
-                    //Cogemos el string creado y lo convertimos en un vector de Bytes
-                    byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
-                    server.Send(msg);
-
-                    //Recibimos la respuesta del servidor
-                    //Recibimos un vector de bytes y lo convertimos a string
-                    byte[] msg2 = new byte[30];
-                    server.Receive(msg2);
-                    mensaje = Encoding.ASCII.GetString(msg2).Split('\0')[0]; //El split sirve para quedarme solo con el string que quiero
-                                                                             //lo demás se considera basura
                     if (mensaje == "REGISTRADO")
                     {
                         MessageBox.Show("Usuario registrado");
@@ -77,14 +75,9 @@ namespace Version1
                         MessageBox.Show("Usuario ya registrado.");
                     }
 
-                    mensaje = "0/";
+                   
 
-                    msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
-                    server.Send(msg);
-                    this.BackColor = Color.Gray;
-                    server.Shutdown(SocketShutdown.Both);
-                    server.Close();
-                    this.Close();
+                    
                 }
                 else
                     MessageBox.Show("The passwords don't match");

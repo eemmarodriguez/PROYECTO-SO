@@ -38,12 +38,12 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Username = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id_player = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.OnlinePlayersBUTTON = new System.Windows.Forms.RadioButton();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.Online_users = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.IdLabel = new System.Windows.Forms.Label();
             this.UsuarioLabel = new System.Windows.Forms.Label();
+            this.OnlineButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -136,7 +136,6 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(240, 150);
             this.dataGridView1.TabIndex = 8;
-            this.dataGridView1.Visible = false;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // Username
@@ -149,24 +148,12 @@
             this.id_player.HeaderText = "Id";
             this.id_player.Name = "id_player";
             // 
-            // OnlinePlayersBUTTON
-            // 
-            this.OnlinePlayersBUTTON.AutoSize = true;
-            this.OnlinePlayersBUTTON.Location = new System.Drawing.Point(380, 215);
-            this.OnlinePlayersBUTTON.Name = "OnlinePlayersBUTTON";
-            this.OnlinePlayersBUTTON.Size = new System.Drawing.Size(89, 17);
-            this.OnlinePlayersBUTTON.TabIndex = 9;
-            this.OnlinePlayersBUTTON.TabStop = true;
-            this.OnlinePlayersBUTTON.Text = "OnlinePlayers";
-            this.OnlinePlayersBUTTON.UseVisualStyleBackColor = true;
-            this.OnlinePlayersBUTTON.CheckedChanged += new System.EventHandler(this.OnlinePlayersBUTTON_CheckedChanged);
-            // 
             // dataGridView2
             // 
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Online_users});
-            this.dataGridView2.Location = new System.Drawing.Point(152, 128);
+            this.dataGridView2.Location = new System.Drawing.Point(631, 87);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.Size = new System.Drawing.Size(143, 150);
             this.dataGridView2.TabIndex = 10;
@@ -203,16 +190,26 @@
             this.UsuarioLabel.TabIndex = 12;
             this.UsuarioLabel.Text = "USUARIO";
             // 
+            // OnlineButton
+            // 
+            this.OnlineButton.Location = new System.Drawing.Point(12, 23);
+            this.OnlineButton.Name = "OnlineButton";
+            this.OnlineButton.Size = new System.Drawing.Size(75, 23);
+            this.OnlineButton.TabIndex = 14;
+            this.OnlineButton.Text = "Online";
+            this.OnlineButton.UseVisualStyleBackColor = true;
+            this.OnlineButton.Click += new System.EventHandler(this.OnlineButton_Click);
+            // 
             // Consultas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(795, 303);
+            this.ClientSize = new System.Drawing.Size(897, 489);
+            this.Controls.Add(this.OnlineButton);
             this.Controls.Add(this.IdLabel);
             this.Controls.Add(this.UsuarioLabel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dataGridView2);
-            this.Controls.Add(this.OnlinePlayersBUTTON);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.DisconnectButton);
             this.Controls.Add(this.SendButton);
@@ -242,7 +239,6 @@
         private System.Windows.Forms.Button SendButton;
         private System.Windows.Forms.Button DisconnectButton;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.RadioButton OnlinePlayersBUTTON;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Online_users;
         private System.Windows.Forms.DataGridViewTextBoxColumn Username;
@@ -250,6 +246,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label IdLabel;
         private System.Windows.Forms.Label UsuarioLabel;
+        private System.Windows.Forms.Button OnlineButton;
     }
 }
 
