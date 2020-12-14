@@ -43,7 +43,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.IdLabel = new System.Windows.Forms.Label();
             this.UsuarioLabel = new System.Windows.Forms.Label();
-            this.InvitarButton = new System.Windows.Forms.Button();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.Partida = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.JugarButton = new System.Windows.Forms.Button();
@@ -200,16 +199,6 @@
             this.UsuarioLabel.TabIndex = 12;
             this.UsuarioLabel.Text = "USUARIO";
             // 
-            // InvitarButton
-            // 
-            this.InvitarButton.Location = new System.Drawing.Point(831, 215);
-            this.InvitarButton.Name = "InvitarButton";
-            this.InvitarButton.Size = new System.Drawing.Size(75, 23);
-            this.InvitarButton.TabIndex = 15;
-            this.InvitarButton.Text = "Invitar";
-            this.InvitarButton.UseVisualStyleBackColor = true;
-            this.InvitarButton.Click += new System.EventHandler(this.InvitarButton_Click);
-            // 
             // dataGridView3
             // 
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -256,7 +245,6 @@
             this.Controls.Add(this.StatusLabel);
             this.Controls.Add(this.JugarButton);
             this.Controls.Add(this.dataGridView3);
-            this.Controls.Add(this.InvitarButton);
             this.Controls.Add(this.IdLabel);
             this.Controls.Add(this.UsuarioLabel);
             this.Controls.Add(this.label2);
@@ -298,7 +286,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label IdLabel;
         private System.Windows.Forms.Label UsuarioLabel;
-        private System.Windows.Forms.Button InvitarButton;
         private System.Windows.Forms.DataGridView dataGridView3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Partida;
         private System.Windows.Forms.Button JugarButton;

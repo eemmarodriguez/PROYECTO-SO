@@ -196,3 +196,62 @@ C:\Users\david\Desktop\Version 4 Partida Unica\Version1\obj\x86\Debug\Version1.c
 C:\Users\david\Desktop\Version 4 Partida Unica\Version1\obj\x86\Debug\Version1.csproj.CoreCompileInputs.cache
 C:\Users\david\Desktop\Version 4 Partida Unica\Version1\obj\x86\Debug\Version1.exe
 C:\Users\david\Desktop\Version 4 Partida Unica\Version1\obj\x86\Debug\Version1.pdb
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version 4 Partida Unica ENTREGA\Version1\bin\Debug\Version1.exe
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version 4 Partida Unica ENTREGA\Version1\bin\Debug\Version1.pdb
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version 4 Partida Unica ENTREGA\Version1\obj\x86\Debug\Version1.csprojAssemblyReference.cache
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version 4 Partida Unica ENTREGA\Version1\obj\x86\Debug\Version1.Consultas.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version 4 Partida Unica ENTREGA\Version1\obj\x86\Debug\Version1.Login.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version 4 Partida Unica ENTREGA\Version1\obj\x86\Debug\Version1.Properties.Resources.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version 4 Partida Unica ENTREGA\Version1\obj\x86\Debug\Version1.Register.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version 4 Partida Unica ENTREGA\Version1\obj\x86\Debug\Version1.csproj.GenerateResource.cache
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version 4 Partida Unica ENTREGA\Version1\obj\x86\Debug\Version1.csproj.CoreCompileInputs.cache
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version 4 Partida Unica ENTREGA\Version1\obj\x86\Debug\Version1.exe
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version 4 Partida Unica ENTREGA\Version1\obj\x86\Debug\Version1.pdb
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version 5 Inicio 01-12-2020\Version1\bin\Debug\Version1.exe
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version 5 Inicio 01-12-2020\Version1\bin\Debug\Version1.pdb
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version 5 Inicio 01-12-2020\Version1\obj\x86\Debug\Version1.csprojAssemblyReference.cache
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version 5 Inicio 01-12-2020\Version1\obj\x86\Debug\Version1.Consultas.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version 5 Inicio 01-12-2020\Version1\obj\x86\Debug\Version1.Login.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version 5 Inicio 01-12-2020\Version1\obj\x86\Debug\Version1.Properties.Resources.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version 5 Inicio 01-12-2020\Version1\obj\x86\Debug\Version1.Register.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version 5 Inicio 01-12-2020\Version1\obj\x86\Debug\Version1.csproj.GenerateResource.cache
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version 5 Inicio 01-12-2020\Version1\obj\x86\Debug\Version1.csproj.CoreCompileInputs.cache
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version 5 Inicio 01-12-2020\Version1\obj\x86\Debug\Version1.exe
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version 5 Inicio 01-12-2020\Version1\obj\x86\Debug\Version1.pdb
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version 5 Inicio 01-12-2020\Version1\obj\x86\Debug\Version1.Juego.resources
+C:\Users\david\Downloads\Version 5 Inicio 01-12-2020\Version1\bin\Debug\Version1.exe
+C:\Users\david\Downloads\Version 5 Inicio 01-12-2020\Version1\bin\Debug\Version1.pdb
+C:\Users\david\Downloads\Version 5 Inicio 01-12-2020\Version1\obj\x86\Debug\Version1.csprojAssemblyReference.cache
+C:\Users\david\Downloads\Version 5 Inicio 01-12-2020\Version1\obj\x86\Debug\Version1.Consultas.resources
+C:\Users\david\Downloads\Version 5 Inicio 01-12-2020\Version1\obj\x86\Debug\Version1.Juego.resources
+C:\Users\david\Downloads\Version 5 Inicio 01-12-2020\Version1\obj\x86\Debug\Version1.Login.resources
+C:\Users\david\Downloads\Version 5 Inicio 01-12-2020\Version1\obj\x86\Debug\Version1.Properties.Resources.resources
+C:\Users\david\Downloads\Version 5 Inicio 01-12-2020\Version1\obj\x86\Debug\Version1.Register.resources
+C:\Users\david\Downloads\Version 5 Inicio 01-12-2020\Version1\obj\x86\Debug\Version1.csproj.GenerateResource.cache
+C:\Users\david\Downloads\Version 5 Inicio 01-12-2020\Version1\obj\x86\Debug\Version1.csproj.CoreCompileInputs.cache
+C:\Users\david\Downloads\Version 5 Inicio 01-12-2020\Version1\obj\x86\Debug\Version1.exe
+C:\Users\david\Downloads\Version 5 Inicio 01-12-2020\Version1\obj\x86\Debug\Version1.pdb
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version 5 cerrar forms 03-12-2020\Version1\bin\Debug\Version1.exe
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version 5 cerrar forms 03-12-2020\Version1\bin\Debug\Version1.pdb
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version 5 cerrar forms 03-12-2020\Version1\obj\x86\Debug\Version1.csprojAssemblyReference.cache
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version 5 cerrar forms 03-12-2020\Version1\obj\x86\Debug\Version1.Consultas.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version 5 cerrar forms 03-12-2020\Version1\obj\x86\Debug\Version1.Juego.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version 5 cerrar forms 03-12-2020\Version1\obj\x86\Debug\Version1.Login.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version 5 cerrar forms 03-12-2020\Version1\obj\x86\Debug\Version1.Properties.Resources.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version 5 cerrar forms 03-12-2020\Version1\obj\x86\Debug\Version1.Register.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version 5 cerrar forms 03-12-2020\Version1\obj\x86\Debug\Version1.csproj.GenerateResource.cache
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version 5 cerrar forms 03-12-2020\Version1\obj\x86\Debug\Version1.csproj.CoreCompileInputs.cache
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version 5 cerrar forms 03-12-2020\Version1\obj\x86\Debug\Version1.exe
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version 5 cerrar forms 03-12-2020\Version1\obj\x86\Debug\Version1.pdb
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Versión 5 cris\Version 5 cerrar forms Cris\Version1\bin\Debug\Version1.exe
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Versión 5 cris\Version 5 cerrar forms Cris\Version1\bin\Debug\Version1.pdb
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Versión 5 cris\Version 5 cerrar forms Cris\Version1\obj\x86\Debug\Version1.csprojAssemblyReference.cache
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Versión 5 cris\Version 5 cerrar forms Cris\Version1\obj\x86\Debug\Version1.Consultas.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Versión 5 cris\Version 5 cerrar forms Cris\Version1\obj\x86\Debug\Version1.Juego.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Versión 5 cris\Version 5 cerrar forms Cris\Version1\obj\x86\Debug\Version1.Login.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Versión 5 cris\Version 5 cerrar forms Cris\Version1\obj\x86\Debug\Version1.Properties.Resources.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Versión 5 cris\Version 5 cerrar forms Cris\Version1\obj\x86\Debug\Version1.Register.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Versión 5 cris\Version 5 cerrar forms Cris\Version1\obj\x86\Debug\Version1.csproj.GenerateResource.cache
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Versión 5 cris\Version 5 cerrar forms Cris\Version1\obj\x86\Debug\Version1.csproj.CoreCompileInputs.cache
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Versión 5 cris\Version 5 cerrar forms Cris\Version1\obj\x86\Debug\Version1.exe
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Versión 5 cris\Version 5 cerrar forms Cris\Version1\obj\x86\Debug\Version1.pdb

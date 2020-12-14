@@ -12,7 +12,7 @@
 int contador;
 int i=0;
 int sockets[100]; //Vector de Sockets, que serán las conexiones de los usuarios
-int puerto = 50022;  //50020
+int puerto = 50020;  //50020
 
 typedef struct {
 	int socket;
@@ -36,20 +36,22 @@ typedef struct{
 	Partida partidas[100];
 	int num;
 	int totales;
+	int current;
 }ListaPartidas;
 
 ListaUsuarios l;
+Usuario users;
 ListaPartidas lpartidas;
+
+
 
 //Estructura necesaria para acesso excluyente
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-void PonerJugadorPartida (Partida *part, int j, char nombre[30])
-{
-	strcpy(part->usuarios[j].nombre, nombre);
-}
+
 void PonerUsuariosConectados (ListaUsuarios *l, int socket, char nombre[30], int flag)
 {
+	
 	int encontrado = 0;
 	for(int i=0; i<l->num ;i++)
 	{
@@ -75,14 +77,36 @@ void PonerUsuariosConectados (ListaUsuarios *l, int socket, char nombre[30], int
 		if (flag == 0)
 			l->current--;
 	}
+	
 }
-
+void PonerJugadorPartida (Partida *part, int j, char nombre[30])
+{
+	strcpy(part->usuarios[j].nombre, nombre);
+}
 void PonerDatosPartida (ListaUsuarios l, Partida *part, int k, int j,char nombre[30])
 {
 	
 	part->usuarios[j].socket = l.usuarios[k].socket;
 	strcpy(part->usuarios[j].nombre, nombre);
+	
 	part->current++;
+	
+}
+void VaciarPartida (Partida *part)
+{
+	part->num=0;
+	part->current=0;
+	part->status=0;
+	printf("\t vacio la lista de usuarios\n");
+	part->usuarios[0] = users;
+	part->usuarios[1] = users;
+	part->usuarios[2] = users;
+	part->usuarios[3] = users;
+	printf("\t He vaciado la lista de usuarios\n");
+}
+void PonerDatosPartidaNum (Partida *part, int num)
+{
+	part->num = num;
 }
 
 void PonerPartida (ListaPartidas *lpartidas, Partida part)
@@ -542,12 +566,14 @@ void *AtenderCliente (void *socket)
 			//nos llega /nombre/0 (desconectar) /nombre/1 (conectar)
 			
 			// 1 conectado, 0 desconectado (FLAGS)
+			printf("\tEntro en el codigo 7\n"); 
 			char usuario[30];
 			strcpy (usuario, nombre);
+			printf("\tSTRTOK\n"); 
 			char *p;
 			p = strtok(NULL, "/");
 			int conectadoflag = atoi(p);
-			
+			printf("\tPONEMOS EN CONECTADOS\n"); 
 			pthread_mutex_lock( &mutex);
 			PonerUsuariosConectados (&l, sock_conn, nombre, conectadoflag);
 			pthread_mutex_unlock( &mutex);
@@ -583,66 +609,106 @@ void *AtenderCliente (void *socket)
 
 		if (codigo == 9) //partida
 		{
-			pthread_mutex_lock( &mutex);
 			
+			// 9/primera/3/Ems/Cris o 9/indicepartida/3/Ems/Cris
+			int primera = 1;
+			int numpartida;
+			if (strcmp(nombre, "primera")==0)
+			{
+				
+				numpartida = lpartidas.current;
+				printf("\t lpartidas.current = %d\n",  lpartidas.current);
+				lpartidas.current ++;
+				printf("\t lpartidas.current 2-step = %d\n",  lpartidas.current);
+/*				if (lpartidas.num == 99)*/
+/*				{*/
+/*					lpartidas.num = 0; */
+/*				}*/
+			}
+			else
+			{
+				printf("\t indicepartida = %d\n",  numpartida);
+				primera = 0;
+				numpartida = atoi(nombre); //lpartidas.partidas[numpartida]
+			}
+			printf("\t lpartidas.current FUERA IF = %d\n",  lpartidas.current);
+			printf("\t indicepartida FUERA IF = %d\n",  numpartida);
+			char *p;
+			p = strtok(NULL, "/"); 
+			int indice = atoi(p);
 			
-			int indice = atoi(nombre);
-			Partida party;
-			party.num = indice;
 			
 			char IndicePartida[30];
-			sprintf(IndicePartida, "%d", lpartidas.num);
+			sprintf(IndicePartida, "%d", numpartida);
 			
-			party.current = 0;
+			
 			char invitador[30];
 			char participantes[50];
 			int Socket[indice];
 			int entro=0;
+			printf("\t Indice: %d\n", numpartida);
 			for (int j=0; j<indice; j++)
 			{
 				char *p;
 				p = strtok(NULL,"/");
+				printf("\t NombreSocket: %s\n",p);
 				if (j==0)
 				{
 					strcpy(invitador, p);
 					strcat(invitador, "/");
-					PonerJugadorPartida(&party, j, p);
+					pthread_mutex_lock( &mutex);
+					PonerDatosPartidaNum(&lpartidas.partidas[numpartida], indice);
+					pthread_mutex_unlock( &mutex);
 				}
-				
 				
 				for (int k=0; k<=l.num; k++)
 				{
 					if (strcmp(l.usuarios[k].nombre, p) == 0)
 					{
-						if ((j==0)&&(entro==0))
+						if (primera == 1)
 						{
-							printf("CURRENT %d\n", party.current);
-							PonerDatosPartida(l, &party, k, j, p);
-							entro = 1;
-							printf("CURRENT %d\n", party.current);
+							printf("\t Estoy en primera = 1\n");
+							pthread_mutex_lock( &mutex);
+							PonerDatosPartida(l, &lpartidas.partidas[numpartida],k, j, p);
+							pthread_mutex_unlock( &mutex);
+							
 						}
+						
 						Socket[j] = l.usuarios[k].socket;
+						printf("\t Estoy poniendo el socket: %d\n",Socket[j]);
 					}
 				}
 				
+				
+				
 			}
-			//if lpartidas.partidas[lpartidas.num].status == 0)
-			PonerPartida(&lpartidas, party);
-			printf("CURRENT %d\n", lpartidas.partidas[0].current);
+			//if lpartidas.partidas[lpartidas.num].status == 0 	
+			printf("CURRENT %d\n", lpartidas.partidas[numpartida].current);
 			char notificacion[512];
 			strcat(invitador, IndicePartida);
 			strcat(invitador, "/");
 			sprintf (notificacion, "8/%s", invitador);
 			printf ("Notificacion %s\n", notificacion);
-			for(int j=1; j< indice; j++)
-				write (Socket[j], notificacion, strlen(notificacion));
+			for(int j=0; j< indice; j++)
+			{
+				if (j==0)
+				{
+					char envio[40];
+					strcpy(envio, "9/indicepartida/");
+					strcat(envio, IndicePartida);
+					strcat(envio, "/");
+					write (Socket[j], envio, strlen(envio));
+				}
+				if (j!=0)
+					write (Socket[j], notificacion, strlen(notificacion));
+			}
 			
-			pthread_mutex_unlock( &mutex);
+			
 			
 		}
 		if (codigo == 10) 
 		{
-			pthread_mutex_lock( &mutex);
+			
 			printf("\t Estamos en codigo 10\n");
 			if (strcmp("No", nombre) == 0)
 			{
@@ -656,7 +722,11 @@ void *AtenderCliente (void *socket)
 				
 				
 				int socket = lpartidas.partidas[indice].usuarios[0].socket;
+				
+				pthread_mutex_lock( &mutex);
 				lpartidas.partidas[indice].num--;
+				pthread_mutex_unlock( &mutex);
+				
 				char notificacion[512];
 				sprintf(notificacion, "9/%s", "No/");
 				strcat(notificacion, nojuega);
@@ -700,7 +770,9 @@ void *AtenderCliente (void *socket)
 					if ((strcmp(l.usuarios[k].nombre, invitado) == 0)&&(entro==0))
 					{
 						printf("\t entramos en match\n");
+						pthread_mutex_lock( &mutex);
 						PonerDatosPartida(l, &lpartidas.partidas[indice], k, numparticipantes, invitado); 	
+						pthread_mutex_unlock( &mutex);
 						printf("\t current dentro del match: %d \n",lpartidas.partidas[indice].current);
 						entro = 1;
 					}
@@ -745,6 +817,7 @@ void *AtenderCliente (void *socket)
 			if (strcmp("Quitame", nombre) == 0)
 			{
 				//10/Quitame/numpart/nombre
+				printf("ESTOY EN QUITAME");
 				int entro = 0;
 				int noenviar = 0;
 				char *p;
@@ -761,16 +834,21 @@ void *AtenderCliente (void *socket)
 				{
 					if(strcmp(lpartidas.partidas[indice].usuarios[i].nombre, eliminado)==0)
 					{
-						soy = i;
+						soy = i; //lo buscamos para no enviarle el socket
 						sock = lpartidas.partidas[indice].usuarios[i].socket;
+						pthread_mutex_lock( &mutex);
 						lpartidas.partidas[indice].current--;
+						pthread_mutex_unlock( &mutex);
+						pthread_mutex_lock( &mutex);
 						CambioPosiciones(&lpartidas.partidas[indice], i);
+						pthread_mutex_unlock( &mutex);
 						
 						char mensaje[40];
 						strcpy(mensaje, "9/Mevoy/");
+						printf("Estoy en MEVOY, mensaje: %s\n", mensaje);
 						write(sock, mensaje, strlen(mensaje));
 						entro = 1; //Si esta en la partida, no lo volvemos a poner
-						noenviar = 1;
+						noenviar = 1; //para no mandarle la lista al desconectado
 					}
 				}
 				
@@ -789,37 +867,86 @@ void *AtenderCliente (void *socket)
 				}
 				
 				printf("ENVIO: %s\n", envio);
-				if (noenviar == 1)
-				{
+/*				if (noenviar == 1)*/
+/*				{*/printf("CURRENT: %d \n", lpartidas.partidas[indice].current);
 					for (int j=0; j<lpartidas.partidas[indice].current; j++) //j=1 porque al que invita no se le envia					
 					{
-						if (j==0)
+						if (j!=soy)
 						{
-							char mensaje[40];
-							strcpy(mensaje, "9/Eliminado/");
-							strcat(mensaje, eliminado);
-							strcat(mensaje, "/");
-							write(lpartidas.partidas[indice].usuarios[j].socket, mensaje, strlen(mensaje));
+							if (j==0)
+							{
+								char send[40];
+								strcpy(send, "9/Eliminado/");
+								strcat(send, eliminado);
+								strcat(send, "/");
+								printf("J=0, Mensaje: %s\n", send);
+								printf("SOCKET: %d\n", lpartidas.partidas[indice].usuarios[j].socket);
+								write(lpartidas.partidas[indice].usuarios[j].socket, send, strlen(send));
+							}
+							else
+								write(lpartidas.partidas[indice].usuarios[j].socket, envio, strlen(envio));
 						}
-						else
-							write(lpartidas.partidas[indice].usuarios[j].socket, envio, strlen(envio));
 					}
-				}
+				//}
 			}
-			pthread_mutex_unlock( &mutex);
+			
+			if (strcmp("desconectando", nombre)==0)
+			{
+				char *p;
+				p = strtok(NULL,"/");
+				int partida;
+				partida = atoi(p);
+				for (int j=1; j<lpartidas.partidas[partida].current;j++)
+				{	
+					char message[30];
+					strcpy(message, "9/anfitrionfuera/");		
+					write(lpartidas.partidas[partida].usuarios[j].socket, message, strlen(message));
+				}
+				pthread_mutex_lock( &mutex);
+				VaciarPartida(&lpartidas.partidas[partida]);
+				pthread_mutex_unlock( &mutex);
+				
+			}
+			
+			
+		
 		}
 		if (codigo == 11)
 		{ 	//MENSAJE 11/indicepartida
 			int partidaindex = atoi(nombre);
 			int indexfor = lpartidas.partidas[partidaindex].current;
+			//int indexfor = 4;
+			printf("Entramos en 11\n"); 
+			printf("Indexfor: %d\n", indexfor);
 			for(int j=0;j<indexfor;j++)
 			{
 				char mensaje[40];
 				strcpy (mensaje, "10/comienza/");
+				printf("Socket: %d\n", lpartidas.partidas[partidaindex].usuarios[j].socket);
+				printf("j: %d\n", j);
 				write(lpartidas.partidas[partidaindex].usuarios[j].socket, mensaje, strlen(mensaje));
 			}
 			
 			
+		}
+		if (codigo == 12)
+		{
+			
+			// 12/indice/mensaje 
+			// nombre = indice
+			char *p;
+			p = strtok(NULL, "/"); 
+			char envio[30];
+			strcpy(envio, "12/");
+			strcat(envio, nombre); //INDICE
+			strcat(envio,"/");
+			strcat(envio, p); // MENSAJE
+			strcat(envio, "/");
+			printf("Envio: %s", envio);
+			for (int j= 0;j<lpartidas.partidas[atoi(nombre)].current;j++)
+			{
+				write(lpartidas.partidas[atoi(nombre)].usuarios[j].socket, envio, strlen(envio));
+			}
 		}
 		if (codigo != 0)
 		{
@@ -900,10 +1027,12 @@ int main(int argc, char *argv[])
 	int num = 0;
 	l.num = 0;
 	lpartidas.num=0;
+	
 	lpartidas.totales = 100;
 	for(int j=0; j<lpartidas.totales; j++)
 	{
 		lpartidas.partidas[j].status=0;
+		//lpartidas.partidas[j].current=0;
 	}
 	
 

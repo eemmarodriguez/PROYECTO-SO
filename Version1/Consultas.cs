@@ -17,6 +17,8 @@ namespace Version1
         bool cerrando = false;
         Login FormsLogin = new Login();
         Register FormsRegister = new Register();
+        Juego FormsJuego = new Juego();
+        Juego[] JuegosArray = new Juego[100]; 
         Socket server;
         bool disconecting = false; 
         string usuario;
@@ -26,10 +28,19 @@ namespace Version1
         //string socket;
         int k = 0;
         Thread atender;
+        Thread juego;
         string[] partida = new string[4];
-        string[] listapartidas = new string[100];
+        int indicepartida;
+        int[] listapartidas = new int[100];
         int partida_simultaneas = 0; 
         int num = 1;
+        int primerainvitacion = 0;
+        int anfitrion;
+        bool saliendo = false;
+        int entroGrid3 = 0;
+        int jugando = 0;
+        string mchat;
+        
         
 
         delegate void DelegadoParaEscribirRegister(string mensaje, int n, string id);
@@ -48,8 +59,9 @@ namespace Version1
             //"147.83.117.22" Shiva
             //50020
             //192.168.56.102 Maquina virtual
+            //192.168.56.103 Maquina virtual David
             IPAddress direc = IPAddress.Parse("147.83.117.22");//DireccionIP de la Maquina Virtual
-            IPEndPoint ipep = new IPEndPoint(direc, 50022); //Le pasamos el acceso y el puerto que asignamos en el codigo del servidor
+            IPEndPoint ipep = new IPEndPoint(direc, 50020); //Le pasamos el acceso y el puerto que asignamos en el codigo del servidor
 
             
             while (k == 0)
@@ -112,7 +124,7 @@ namespace Version1
                     dataGridView3.Rows[0].Cells[0].Value = this.usuario; //metemos el usuario propio en la partida
                     this.id = Convert.ToInt32(index);
                     //this.socket = sock;
-
+                    saliendo = false; //boolean para que no salga que el anfitrion te expulsa.
 
                     UsuarioLabel.Text = "User: " + this.usuario;
                     IdLabel.Text = "ID: " + Convert.ToString(this.id);
@@ -130,7 +142,9 @@ namespace Version1
 
 
                     StatusLabel.Text = "Eres el anfitrion";
+                    anfitrion = 1;
                     enviar_server("7/" + this.usuario + "/1");
+                    this.BackColor = Color.Green; 
                     conectado = true;
 
                 }
@@ -138,6 +152,10 @@ namespace Version1
                 {
                     atender.Abort();
                     cerrando = true;
+                    enviar_server("0/Deconectamos");
+                    Thread.Sleep(100);
+                    server.Shutdown(SocketShutdown.Both);
+                    server.Close();
                     Application.Exit();
                 }
             }
@@ -157,6 +175,12 @@ namespace Version1
             this.id = id_1;
 
         }
+
+        public void SetChat(string mchat)
+        {
+            this.mchat = mchat;
+        }
+
         public void PonData1(string user, int n, string id)
         {
             
@@ -176,7 +200,8 @@ namespace Version1
             dataGridView3.Enabled = false;
             JugarButton.Enabled = false;
             StatusLabel.Text = "Eres el invitado";
-            InvitarButton.Enabled = false;
+            anfitrion = 0;
+            //InvitarButton.Enabled = false;
             dataGridView3.Refresh();
         }
         public void ClearRefresh (int n, int filas)
@@ -203,12 +228,14 @@ namespace Version1
                 dataGridView3.Enabled = true;
                 JugarButton.Enabled = true;
                 StatusLabel.Text = "Eres el anfitrion";
-                InvitarButton.Enabled = true;
+               // InvitarButton.Enabled = true;
                 dataGridView3.Refresh();
                 
             }
 
         }
+
+
         public void AtenderServidor()
         {
             while (true)
@@ -301,7 +328,7 @@ namespace Version1
                         case 8:
                             if (MessageBox.Show("Te ha invitado " + trozos[1] + " a jugar", " ", MessageBoxButtons.YesNo) == DialogResult.Yes)
                             {
-                                listapartidas[partida_simultaneas] = trozos[2];//trozos[2] nos manda 
+                                indicepartida = Convert.ToInt32(trozos[2]);//trozos[2] nos manda 
                                 //partida_simultaneas++;
                                 
                                 enviar_server("10/Si/"+ trozos[2] + "/"+ this.usuario);
@@ -325,7 +352,7 @@ namespace Version1
                             {
                                 
                                 MessageBox.Show(trozos[2] + " ha aceptado la invitacion");
-                                listapartidas[partida_simultaneas] = trozos[3];//trozos[2] nos manda
+                                //listapartidas[partida_simultaneas] = trozos[3];//trozos[2] nos manda
 
                             }
                             if (trozos[1] == "llena") //es el receptor (el usuario)
@@ -344,18 +371,70 @@ namespace Version1
                             }
                             if (trozos[1] == "Mevoy")
                             {
-                                MessageBox.Show("El anfitrion te ha expulsado");
+                                if (saliendo == false)
+                                {
+                                    MessageBox.Show("El anfitrion te ha expulsado");
+                                    DelegadoParaRefrescarTablas delegado2 = new DelegadoParaRefrescarTablas(ClearRefresh);
+                                    dataGridView3.Invoke(delegado2, new object[] { 3, 4 });
+                                    anfitrion = 0;
+                                }
+                                
+                            }
+                            if (trozos[1] == "indicepartida") //9/indicepartida/3
+                            {
+                                indicepartida = Convert.ToInt32(trozos[2]);
+                            }
+                            if (trozos[1] == "Eliminado")
+                            {
+                                if (entroGrid3 == 0)
+                                {
+                                    CambiarListaAnfitrion(trozos[2]);
+                                }
+                                entroGrid3 = 0;
+                            }
+                            if (trozos[1] == "anfitrionfuera")
+                            {
+                                MessageBox.Show("El anfitrion se ha desconectado");
                                 DelegadoParaRefrescarTablas delegado2 = new DelegadoParaRefrescarTablas(ClearRefresh);
                                 dataGridView3.Invoke(delegado2, new object[] { 3, 4 });
-                                
+                                anfitrion = 0;
                             }
                             break;
                         case 10:
-
+                            listapartidas[partida_simultaneas] = indicepartida;
+                            partida_simultaneas++;
+                            num = 1;
+                            jugando = 1;
+                            partida = new string[4];
+                            primerainvitacion = 0;
+                            DelegadoParaRefrescarTablas delegado3 = new DelegadoParaRefrescarTablas(ClearRefresh);
+                            dataGridView3.Invoke(delegado3, new object[] { 3, 4 });
+                            anfitrion = 0;
                             MessageBox.Show("Empieza la partida");
+                            primerainvitacion = 0;
+                            IniciarJuego();
+
                             break;
                         case 11:
                             FormsLogin.SetExiste(trozos[1]);
+                            break;
+                        
+                        case 12: //Escribimos los mensajes en el chat
+                            int indice = 0;
+                            bool encontrado = false;
+                            
+                            for (int j = 0; j < partida_simultaneas; j++)
+                            {
+                                if ((JuegosArray[j].GetIndice() == Convert.ToInt32(trozos[1])) && (encontrado == false))
+                                {
+                                    //Buscamos en que indice hemos guardado la partida, para así encontrar el forms, ya que tienen el mismo indice
+                                    indice = j;
+                                    encontrado = true;
+                                }
+                            }
+                            JuegosArray[indice].SetMensajes(trozos[2]);
+                           
+
                             break;
                     }
                 }
@@ -372,7 +451,21 @@ namespace Version1
            
         }
 
+        private void IniciarJuego ()
+        {
+            ThreadStart ts = delegate { AtenderServidor(); };
+            juego = new Thread(ts);
+            juego.Start();
+            Juego FormsJuego = new Juego();
+            FormsJuego.SetPartida(indicepartida);
+            FormsJuego.SetThread(juego);
+            FormsJuego.SetServer(server);
+            FormsJuego.SetUsuario(this.usuario);
+            
 
+            JuegosArray[partida_simultaneas-1] = FormsJuego;
+            JuegosArray[partida_simultaneas-1].ShowDialog();
+        }
         private void ConnectButton_Click(object sender, EventArgs e)  //NOS CONECTAMOS AL SERVIDOR 
         {
 
@@ -414,16 +507,29 @@ namespace Version1
         private void DisconnectButton_Click(object sender, EventArgs e)
         {
             
-            disconecting = true; 
+            disconecting = true;
+            saliendo = true;
 
             UsuarioLabel.Text = "";
             UsuarioLabel.Text = "";
 
             // NOS QUITAMOS DEL MODO ONLINE
+
+            saliendo = true;
+            if (anfitrion == 1)
+            {
+                for (int j = 0; j <= partida_simultaneas; j++)
+                    enviar_server("10/desconectando/" + Convert.ToString(listapartidas[j]));
+            }
+            if (anfitrion == 0)
+            {
+                for (int j = 0; j <= partida_simultaneas; j++)
+                    enviar_server("10/Quitame/" + Convert.ToString(listapartidas[j]) + "/" + this.usuario);
+            }
             
             conectado = false;
             enviar_server("7/" + this.usuario+"/0");//NOS DESCONECTAMOS FLAG = 0
-      
+           
             
             FormsLogin.ShowDialog();
 
@@ -431,9 +537,14 @@ namespace Version1
             string sock = FormsLogin.GetSocket();
             usuario = FormsLogin.GetUser();
             this.id = Convert.ToInt32(index);
-            
-            dataGridView3.Rows[0].Cells[0].Value = this.usuario;
+            dataGridView3.Rows.Clear();
             dataGridView3.RowCount = 4;
+            dataGridView3.Rows[0].Cells[0].Value = this.usuario;
+            JugarButton.Enabled = true;
+            dataGridView3.Enabled = true;
+            StatusLabel.Text = "Eres el anfitrion";
+
+            
 
             UsuarioLabel.Text = "User: " + this.usuario;
             IdLabel.Text = "ID: " + Convert.ToString(this.id);
@@ -448,6 +559,38 @@ namespace Version1
 
             if ((cerrando == false) && (k == 1))
             {
+                saliendo = true;
+                if (anfitrion == 1)
+                {
+                    if (jugando == 1)
+                    {
+                        for (int j = 0; j < partida_simultaneas; j++)
+                            enviar_server("10/desconectando/" + Convert.ToString(listapartidas[j]));
+                             Thread.Sleep(300);
+                    }
+                    else
+                    {
+                        for (int j = 0; j <= partida_simultaneas; j++)
+                            enviar_server("10/desconectando/" + Convert.ToString(listapartidas[j]));
+                             Thread.Sleep(300);
+                    }
+                }
+                if (anfitrion == 0)
+                {
+                    if (jugando == 1)
+                    {
+                        for (int j = 0; j < partida_simultaneas; j++)
+                            enviar_server("10/Quitame/" + Convert.ToString(listapartidas[j]) + "/" + this.usuario);
+                            Thread.Sleep(300);
+                    }
+                    else
+                    {
+                        for (int j = 0; j <= partida_simultaneas; j++)
+                            enviar_server("10/Quitame/" + Convert.ToString(listapartidas[j]) + "/" + this.usuario);
+                            Thread.Sleep(300);
+                    }
+                }
+                Thread.Sleep(1000);
                 enviar_server("7/" + this.usuario+"/0"); //NOS DESCONECTAMOS flag = 0
                 //Nos desconectamos
                 Thread.Sleep(200);
@@ -536,28 +679,28 @@ namespace Version1
 
         private void InvitarButton_Click(object sender, EventArgs e)
         {
-            string mensaje = "9/";
-            mensaje = mensaje + Convert.ToString(num) + "/" + this.usuario + "/";
-            int j;
-            for(j=0; j<4;j++)
-            {
-                if (partida[j] != null)
-                {
-                    mensaje = mensaje + partida[j] + "/";
-                }
-            }
-            if (partida_simultaneas == 0)
-            {
-                listapartidas[partida_simultaneas] = Convert.ToString(partida_simultaneas);
-               
-            }
-            if (partida_simultaneas != 0)
-            {
-
-            }
-            //MessageBox.Show(mensaje);
-            StatusLabel.Text = "Eres el anfitrion";
-            enviar_server(mensaje);
+            //string mensaje = "9/";
+            //if (primerainvitacion == 0)
+            //{
+            //    primerainvitacion = 1;
+            //    mensaje = mensaje + "primera/" + Convert.ToString(num) + "/" + this.usuario + "/";
+            //}
+            //if (primerainvitacion == 1)
+            //{
+            //    mensaje = mensaje + Convert.ToString(indicepartida) + Convert.ToString(num) + "/" + this.usuario + "/";
+            //}
+            //int j;
+            //for(j=0; j<4;j++)
+            //{
+            //    if (partida[j] != null)
+            //    {
+            //        mensaje = mensaje + partida[j] + "/";
+            //    }
+            //}
+            
+            ////MessageBox.Show(mensaje);
+            //StatusLabel.Text = "Eres el anfitrion";
+            //enviar_server(mensaje);
             
 
         }
@@ -583,11 +726,29 @@ namespace Version1
                     }
                     else
                     {
-                        
-                        dataGridView3.Rows[num].Cells[0].Value = nombre;
-                        dataGridView3.Refresh();
                         partida[num] = nombre;
                         num++;
+                        string mensaje = "9/";
+                        if (primerainvitacion == 0)
+                        {
+                            primerainvitacion = 1;
+                            mensaje = mensaje + "primera/" + "2" + "/" + this.usuario + "/"+nombre; //Ponemos un dos porque siempre mandaremos 2 usuarios
+                        }
+                        else
+                        {
+                            mensaje = mensaje + Convert.ToString(indicepartida) +"/"+ "2" + "/" + this.usuario + "/"+ nombre;
+                        }
+                        
+
+                        MessageBox.Show(mensaje);
+                        StatusLabel.Text = "Eres el anfitrion";
+                        anfitrion = 1;
+                        enviar_server(mensaje);
+
+                        dataGridView3.Rows[num-1].Cells[0].Value = nombre;
+                        dataGridView3.Refresh();
+                        
+
                     }
 
                 }
@@ -607,14 +768,10 @@ namespace Version1
                 if (MessageBox.Show("¿Seguro que quieres borrar a  " + nombre + " de la partida?", " ", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     int indice = dataGridView3.CurrentCell.RowIndex;
-                    if (partida_simultaneas==0)
-                    {
-                        enviar_server("10/Quitame/"+Convert.ToString(listapartidas[0])+"/"+nombre);
-                    }
-                    if (partida_simultaneas > 0)
-                    {
-
-                    }
+                    entroGrid3 = 1;
+                    enviar_server("10/Quitame/"+Convert.ToString(indicepartida)+"/"+nombre);
+                    
+                    
 
                     //dataGridView3.Rows[indice].Cells[0].Value="";
                     CambiarListaAnfitrion(nombre);
@@ -672,7 +829,10 @@ namespace Version1
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            enviar_server("11/" + Convert.ToString(listapartidas[0]));
+
+            listapartidas[partida_simultaneas] = indicepartida;
+            Thread.Sleep(200);
+            enviar_server("11/" + Convert.ToString(listapartidas[partida_simultaneas]));
             //if (partida_simultaneas == 0)
             //{
 
