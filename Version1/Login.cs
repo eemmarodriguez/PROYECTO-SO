@@ -25,6 +25,7 @@ namespace Version1
         string[] registro;
         int entro = 0;
         string existe = "false";
+        bool login = false;
         public Login()
         {
             InitializeComponent();
@@ -58,6 +59,7 @@ namespace Version1
         {
             this.BackColor = Color.White;
             this.CenterToScreen();
+            this.MaximizeBox = false;
         }
         public void SetServer(Socket servidor)
         {
@@ -67,6 +69,14 @@ namespace Version1
         {
             this.mensaje = message; 
 
+        }
+        public void SetLogin(bool log)
+        {
+            this.login = log;
+        }
+        public bool GetLogin()
+        {
+            return this.login;
         }
         public string GetId()
         {
@@ -122,6 +132,7 @@ namespace Version1
                 string contraseña = message[1];                                                         //lo demás se considera basura
                 if ((pwd == contraseña) && (existe=="false")) // SI LA CONTRASEÑA COINCIDE AVANZAMOS
                 {
+                    login = true;
                     MessageBox.Show("Log in Correcto");
 
                     entro = 1;
@@ -178,6 +189,71 @@ namespace Version1
                 textBox2.PasswordChar = Convert.ToChar("*");
                
             }
+        }
+
+        private void textBox1_Enter(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
+            textBox1.ForeColor = Color.Black;
+        }
+
+        private void textBox2_Enter(object sender, EventArgs e)
+        {
+            textBox2.Text = "";
+            textBox2.ForeColor = Color.Black;
+            textBox2.PasswordChar = Convert.ToChar("*");
+
+        }
+
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((int)e.KeyChar == (int)Keys.Enter)
+            {
+                usuario = textBox1.Text;
+
+                enviar_server("4/" + usuario);
+
+                string pwd = textBox2.Text;
+
+
+                if ((usuario != "") && (pwd != ""))
+                {
+
+                    Thread.Sleep(300);
+                    enviar_server("6/" + textBox1.Text);
+                    Thread.Sleep(300);
+                    string[] message = mensaje; //El split sirve para quedarme solo con el string que quiero
+                    string contraseña = message[1];                                                         //lo demás se considera basura
+                    if ((pwd == contraseña) && (existe == "false")) // SI LA CONTRASEÑA COINCIDE AVANZAMOS
+                    {
+                        MessageBox.Show("Log in Correcto");
+
+                        entro = 1;
+                        id = message[2];
+                        //socket = message[3];
+
+                        this.Hide();
+                        textBox2.Text = "";
+
+
+                    }
+                    if (pwd != contraseña)
+                    {
+                        MessageBox.Show("Usuario o contraseña incorrectos");
+                        textBox2.Text = "";
+
+                    }
+                    if (existe == "true")
+                    {
+                        MessageBox.Show("El usuario ya esta conectado en otro dispositivo");
+                    }
+
+                }
+                else
+                    MessageBox.Show("Introduzca su usuario y contraseña");
+                textBox2.Text = "";
+            }
+            
         }
     }
 }

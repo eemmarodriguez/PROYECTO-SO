@@ -255,3 +255,113 @@ C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Ter
 C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Versión 5 cris\Version 5 cerrar forms Cris\Version1\obj\x86\Debug\Version1.csproj.CoreCompileInputs.cache
 C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Versión 5 cris\Version 5 cerrar forms Cris\Version1\obj\x86\Debug\Version1.exe
 C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Versión 5 cris\Version 5 cerrar forms Cris\Version1\obj\x86\Debug\Version1.pdb
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final 26-12-2020\Version1\bin\Debug\Version1.exe
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final 26-12-2020\Version1\bin\Debug\Version1.pdb
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final 26-12-2020\Version1\obj\x86\Debug\Version1.csprojAssemblyReference.cache
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final 26-12-2020\Version1\obj\x86\Debug\Version1.Consultas.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final 26-12-2020\Version1\obj\x86\Debug\Version1.Juego.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final 26-12-2020\Version1\obj\x86\Debug\Version1.Login.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final 26-12-2020\Version1\obj\x86\Debug\Version1.Properties.Resources.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final 26-12-2020\Version1\obj\x86\Debug\Version1.Register.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final 26-12-2020\Version1\obj\x86\Debug\Version1.csproj.GenerateResource.cache
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final 26-12-2020\Version1\obj\x86\Debug\Version1.csproj.CoreCompileInputs.cache
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final 26-12-2020\Version1\obj\x86\Debug\Version1.exe
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final 26-12-2020\Version1\obj\x86\Debug\Version1.pdb
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final 26-12-2020\Version1\obj\x86\Debug\Version1.Preguntas.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\fds\Version Final CRIS TIMER\Version1\bin\Debug\Version1.exe
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\fds\Version Final CRIS TIMER\Version1\bin\Debug\Version1.pdb
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\fds\Version Final CRIS TIMER\Version1\obj\x86\Debug\Version1.csprojAssemblyReference.cache
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\fds\Version Final CRIS TIMER\Version1\obj\x86\Debug\Version1.Consultas.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\fds\Version Final CRIS TIMER\Version1\obj\x86\Debug\Version1.Preguntas.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\fds\Version Final CRIS TIMER\Version1\obj\x86\Debug\Version1.Juego.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\fds\Version Final CRIS TIMER\Version1\obj\x86\Debug\Version1.Login.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\fds\Version Final CRIS TIMER\Version1\obj\x86\Debug\Version1.Properties.Resources.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\fds\Version Final CRIS TIMER\Version1\obj\x86\Debug\Version1.Register.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\fds\Version Final CRIS TIMER\Version1\obj\x86\Debug\Version1.csproj.GenerateResource.cache
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\fds\Version Final CRIS TIMER\Version1\obj\x86\Debug\Version1.csproj.CoreCompileInputs.cache
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\fds\Version Final CRIS TIMER\Version1\obj\x86\Debug\Version1.exe
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\fds\Version Final CRIS TIMER\Version1\obj\x86\Debug\Version1.pdb
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Timer Hecho\Version1\bin\Debug\Version1.exe
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Timer Hecho\Version1\bin\Debug\Version1.pdb
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Timer Hecho\Version1\obj\x86\Debug\Version1.csprojAssemblyReference.cache
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Timer Hecho\Version1\obj\x86\Debug\Version1.Consultas.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Timer Hecho\Version1\obj\x86\Debug\Version1.Preguntas.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Timer Hecho\Version1\obj\x86\Debug\Version1.Juego.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Timer Hecho\Version1\obj\x86\Debug\Version1.Login.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Timer Hecho\Version1\obj\x86\Debug\Version1.Properties.Resources.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Timer Hecho\Version1\obj\x86\Debug\Version1.Register.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Timer Hecho\Version1\obj\x86\Debug\Version1.csproj.GenerateResource.cache
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Timer Hecho\Version1\obj\x86\Debug\Version1.csproj.CoreCompileInputs.cache
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Timer Hecho\Version1\obj\x86\Debug\Version1.exe
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Timer Hecho\Version1\obj\x86\Debug\Version1.pdb
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Cambiar Modo de Juego\Version1\bin\Debug\Version1.exe
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Cambiar Modo de Juego\Version1\bin\Debug\Version1.pdb
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Cambiar Modo de Juego\Version1\obj\x86\Debug\Version1.csprojAssemblyReference.cache
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Cambiar Modo de Juego\Version1\obj\x86\Debug\Version1.Consultas.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Cambiar Modo de Juego\Version1\obj\x86\Debug\Version1.Preguntas.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Cambiar Modo de Juego\Version1\obj\x86\Debug\Version1.Juego.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Cambiar Modo de Juego\Version1\obj\x86\Debug\Version1.Login.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Cambiar Modo de Juego\Version1\obj\x86\Debug\Version1.Properties.Resources.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Cambiar Modo de Juego\Version1\obj\x86\Debug\Version1.Register.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Cambiar Modo de Juego\Version1\obj\x86\Debug\Version1.csproj.GenerateResource.cache
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Cambiar Modo de Juego\Version1\obj\x86\Debug\Version1.csproj.CoreCompileInputs.cache
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Cambiar Modo de Juego\Version1\obj\x86\Debug\Version1.exe
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Cambiar Modo de Juego\Version1\obj\x86\Debug\Version1.pdb
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final Cambiar Modo de Juego\Version1\obj\x86\Debug\Version1.Corona.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final\Version1\bin\Debug\Version1.exe
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final\Version1\bin\Debug\Version1.pdb
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final\Version1\obj\x86\Debug\Version1.csprojAssemblyReference.cache
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final\Version1\obj\x86\Debug\Version1.Consultas.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final\Version1\obj\x86\Debug\Version1.Preguntas.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final\Version1\obj\x86\Debug\Version1.Corona.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final\Version1\obj\x86\Debug\Version1.Juego.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final\Version1\obj\x86\Debug\Version1.Login.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final\Version1\obj\x86\Debug\Version1.Properties.Resources.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final\Version1\obj\x86\Debug\Version1.Register.resources
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final\Version1\obj\x86\Debug\Version1.csproj.GenerateResource.cache
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final\Version1\obj\x86\Debug\Version1.csproj.CoreCompileInputs.cache
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final\Version1\obj\x86\Debug\Version1.exe
+D:\Drive Universidad\Universidad\Tercer Año\SO\Version Final\Version1\obj\x86\Debug\Version1.pdb
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final\Version1\bin\Debug\Version1.exe
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final\Version1\bin\Debug\Version1.pdb
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final\Version1\obj\x86\Debug\Version1.csprojAssemblyReference.cache
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final\Version1\obj\x86\Debug\Version1.Consultas.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final\Version1\obj\x86\Debug\Version1.Preguntas.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final\Version1\obj\x86\Debug\Version1.Corona.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final\Version1\obj\x86\Debug\Version1.Juego.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final\Version1\obj\x86\Debug\Version1.Login.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final\Version1\obj\x86\Debug\Version1.Properties.Resources.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final\Version1\obj\x86\Debug\Version1.Register.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final\Version1\obj\x86\Debug\Version1.csproj.GenerateResource.cache
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final\Version1\obj\x86\Debug\Version1.csproj.CoreCompileInputs.cache
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final\Version1\obj\x86\Debug\Version1.exe
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final\Version1\obj\x86\Debug\Version1.pdb
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final TRIVIAL\Version1\bin\Debug\Version1.exe
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final TRIVIAL\Version1\bin\Debug\Version1.pdb
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final TRIVIAL\Version1\obj\x86\Debug\Version1.csprojAssemblyReference.cache
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final TRIVIAL\Version1\obj\x86\Debug\Version1.Consultas.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final TRIVIAL\Version1\obj\x86\Debug\Version1.Preguntas.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final TRIVIAL\Version1\obj\x86\Debug\Version1.Corona.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final TRIVIAL\Version1\obj\x86\Debug\Version1.Juego.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final TRIVIAL\Version1\obj\x86\Debug\Version1.Login.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final TRIVIAL\Version1\obj\x86\Debug\Version1.Properties.Resources.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final TRIVIAL\Version1\obj\x86\Debug\Version1.Register.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final TRIVIAL\Version1\obj\x86\Debug\Version1.csproj.GenerateResource.cache
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final TRIVIAL\Version1\obj\x86\Debug\Version1.csproj.CoreCompileInputs.cache
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final TRIVIAL\Version1\obj\x86\Debug\Version1.exe
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\Version Final TRIVIAL\Version1\obj\x86\Debug\Version1.pdb
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\bin\Debug\Version1.exe
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\bin\Debug\Version1.pdb
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Version1.csprojAssemblyReference.cache
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Version1.Como_Jugar.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Version1.Consultas.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Version1.Preguntas.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Version1.Corona.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Version1.Juego.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Version1.Login.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Version1.Properties.Resources.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Version1.Register.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Version1.csproj.GenerateResource.cache
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Version1.csproj.CoreCompileInputs.cache
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Version1.exe
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Version1.pdb

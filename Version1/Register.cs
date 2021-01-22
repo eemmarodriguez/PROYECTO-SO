@@ -16,7 +16,11 @@ namespace Version1
     public partial class Register : Form
     {
         Socket server;
-        string[] m; 
+        string[] m;
+        bool contraprimera = false;
+        bool comprovationprimera = false;
+        bool userprimera = false;
+        string mensaje;
         public Register()
         {
             InitializeComponent();
@@ -30,7 +34,7 @@ namespace Version1
 
         private void Register_Load(object sender, EventArgs e)
         {
-
+            this.MaximizeBox = false;
         }
         public void SetRegister (string[] register)
         {
@@ -41,6 +45,7 @@ namespace Version1
         {
             this.server = servidor;
         }
+       
         private void enviar_server(string mensaje)
         {
 
@@ -60,32 +65,48 @@ namespace Version1
             {
                 if (PasswordBox.Text == Comprovation.Text)
                 {
-                    
+
                     enviar_server("5/" + UsernameBox.Text + "/" + PasswordBox.Text);
-                    Thread.Sleep(20);
-                    string mensaje;
+                    Thread.Sleep(300);
+
                     mensaje = m[1];
 
                     if (mensaje == "REGISTRADO")
                     {
-                        MessageBox.Show("Usuario registrado");
+                        PasswordBox.Text = "";
+                        UsernameBox.Text = "";
+                        Comprovation.Text = "";
+                        MessageBox.Show("Usuario registrado correctamente");
+                        this.Close();
                     }
                     else if (mensaje == "NO")
                     {
+                        PasswordBox.Text = "";
+                        UsernameBox.Text = "";
+                        Comprovation.Text = "";
                         MessageBox.Show("Usuario ya registrado.");
                     }
 
-                   
 
-                    
+
+
                 }
                 else
+                {
+                    PasswordBox.Text = "";
+                    Comprovation.Text = "";
                     MessageBox.Show("The passwords don't match");
+                }
 
 
             }
             else
-                MessageBox.Show("Introduzca un usuario y contraseña"); 
+            {
+                PasswordBox.Text = "";
+                UsernameBox.Text = "";
+                Comprovation.Text = "";
+                MessageBox.Show("Introduzca un usuario y contraseña");
+            }
         }
         
         
@@ -109,6 +130,31 @@ namespace Version1
             }
             
             
+        }
+
+
+        private void Comprovation_Enter(object sender, EventArgs e)
+        {
+            Comprovation.Text = "";
+            Comprovation.ForeColor = Color.Black;
+
+            Comprovation.PasswordChar = Convert.ToChar("*");
+            comprovationprimera = true;
+        }
+
+        private void PasswordBox_Enter(object sender, EventArgs e)
+        {
+            PasswordBox.Text = "";
+            PasswordBox.ForeColor = Color.Black;
+            PasswordBox.PasswordChar = Convert.ToChar("*");
+            contraprimera = true;
+        }
+
+        private void UsernameBox_Enter(object sender, EventArgs e)
+        {
+            UsernameBox.Text = "";
+            UsernameBox.ForeColor = Color.Black;
+            userprimera = true;
         }
     }
 }
