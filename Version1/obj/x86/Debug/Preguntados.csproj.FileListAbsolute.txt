@@ -1,0 +1,60 @@
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\bin\Debug\Version1.exe
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\bin\Debug\Version1.pdb
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Preguntados.csprojAssemblyReference.cache
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Version1.Como_Jugar.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Version1.Consultas.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Version1.Preguntas.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Version1.Corona.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Version1.Juego.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Version1.Login.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Version1.Properties.Resources.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Version1.Register.resources
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Preguntados.csproj.GenerateResource.cache
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Preguntados.csproj.CoreCompileInputs.cache
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Version1.exe
+C:\Users\brcri\OneDrive\Escritorio\Universidad\SO\Version Final TRIVIAL (FALTA COMO JUGAR)-20210107T112737Z-001\Version Final TRIVIAL (FALTA COMO JUGAR)\Version1\obj\x86\Debug\Version1.pdb
+C:\Users\david\Downloads\PREGUNTADOS ACABADO\Version1\bin\Debug\Version1.exe
+C:\Users\david\Downloads\PREGUNTADOS ACABADO\Version1\bin\Debug\Version1.pdb
+C:\Users\david\Downloads\PREGUNTADOS ACABADO\Version1\obj\x86\Debug\Preguntados.csprojAssemblyReference.cache
+C:\Users\david\Downloads\PREGUNTADOS ACABADO\Version1\obj\x86\Debug\Version1.Como_Jugar.resources
+C:\Users\david\Downloads\PREGUNTADOS ACABADO\Version1\obj\x86\Debug\Version1.Consultas.resources
+C:\Users\david\Downloads\PREGUNTADOS ACABADO\Version1\obj\x86\Debug\Version1.Preguntas.resources
+C:\Users\david\Downloads\PREGUNTADOS ACABADO\Version1\obj\x86\Debug\Version1.Corona.resources
+C:\Users\david\Downloads\PREGUNTADOS ACABADO\Version1\obj\x86\Debug\Version1.Juego.resources
+C:\Users\david\Downloads\PREGUNTADOS ACABADO\Version1\obj\x86\Debug\Version1.Login.resources
+C:\Users\david\Downloads\PREGUNTADOS ACABADO\Version1\obj\x86\Debug\Version1.Properties.Resources.resources
+C:\Users\david\Downloads\PREGUNTADOS ACABADO\Version1\obj\x86\Debug\Version1.Register.resources
+C:\Users\david\Downloads\PREGUNTADOS ACABADO\Version1\obj\x86\Debug\Preguntados.csproj.GenerateResource.cache
+C:\Users\david\Downloads\PREGUNTADOS ACABADO\Version1\obj\x86\Debug\Preguntados.csproj.CoreCompileInputs.cache
+C:\Users\david\Downloads\PREGUNTADOS ACABADO\Version1\obj\x86\Debug\Version1.exe
+C:\Users\david\Downloads\PREGUNTADOS ACABADO\Version1\obj\x86\Debug\Version1.pdb
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\PREGUNTADOS\Version1\bin\Debug\Version1.exe
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\PREGUNTADOS\Version1\obj\x86\Debug\Preguntados.csprojAssemblyReference.cache
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\PREGUNTADOS\Version1\obj\x86\Debug\Version1.Como_Jugar.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\PREGUNTADOS\Version1\obj\x86\Debug\Version1.Consultas.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\PREGUNTADOS\Version1\obj\x86\Debug\Version1.Preguntas.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\PREGUNTADOS\Version1\obj\x86\Debug\Version1.Corona.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\PREGUNTADOS\Version1\obj\x86\Debug\Version1.Juego.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\PREGUNTADOS\Version1\obj\x86\Debug\Version1.Login.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\PREGUNTADOS\Version1\obj\x86\Debug\Version1.Properties.Resources.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\PREGUNTADOS\Version1\obj\x86\Debug\Version1.Register.resources
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\PREGUNTADOS\Version1\obj\x86\Debug\Preguntados.csproj.GenerateResource.cache
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\PREGUNTADOS\Version1\obj\x86\Debug\Preguntados.csproj.CoreCompileInputs.cache
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\PREGUNTADOS\Version1\obj\x86\Debug\Version1.exe
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\PREGUNTADOS\Version1\obj\x86\Debug\Version1.pdb
+C:\Users\david\Google Drive (david.cosialls@estudiantat.upc.edu)\Universidad\Tercer Año\SO\PREGUNTADOS\Version1\bin\Debug\Version1.pdb
+C:\Users\david\Downloads\PREGUNTADOS\Version1\bin\Debug\Version1.exe
+C:\Users\david\Downloads\PREGUNTADOS\Version1\bin\Debug\Version1.pdb
+C:\Users\david\Downloads\PREGUNTADOS\Version1\obj\x86\Debug\Preguntados.csprojAssemblyReference.cache
+C:\Users\david\Downloads\PREGUNTADOS\Version1\obj\x86\Debug\Version1.Como_Jugar.resources
+C:\Users\david\Downloads\PREGUNTADOS\Version1\obj\x86\Debug\Version1.Consultas.resources
+C:\Users\david\Downloads\PREGUNTADOS\Version1\obj\x86\Debug\Version1.Preguntas.resources
+C:\Users\david\Downloads\PREGUNTADOS\Version1\obj\x86\Debug\Version1.Corona.resources
+C:\Users\david\Downloads\PREGUNTADOS\Version1\obj\x86\Debug\Version1.Juego.resources
+C:\Users\david\Downloads\PREGUNTADOS\Version1\obj\x86\Debug\Version1.Login.resources
+C:\Users\david\Downloads\PREGUNTADOS\Version1\obj\x86\Debug\Version1.Properties.Resources.resources
+C:\Users\david\Downloads\PREGUNTADOS\Version1\obj\x86\Debug\Version1.Register.resources
+C:\Users\david\Downloads\PREGUNTADOS\Version1\obj\x86\Debug\Preguntados.csproj.GenerateResource.cache
+C:\Users\david\Downloads\PREGUNTADOS\Version1\obj\x86\Debug\Preguntados.csproj.CoreCompileInputs.cache
+C:\Users\david\Downloads\PREGUNTADOS\Version1\obj\x86\Debug\Version1.exe
+C:\Users\david\Downloads\PREGUNTADOS\Version1\obj\x86\Debug\Version1.pdb
